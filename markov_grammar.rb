@@ -1,10 +1,8 @@
 require 'rubygems'
 require 'bundler'
 require 'bundler/setup'
-require 'cinch'
 require 'dotenv'
 require 'require_all'
-require 'raad'
 
 Dotenv.load
 Bundler.require

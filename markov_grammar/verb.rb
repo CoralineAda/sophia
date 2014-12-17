@@ -4,21 +4,34 @@ module MarkovGrammar
     include Mongoid::Document
     include Grammar::NaiveTense
 
-    has_many :moods
+    has_and_belongs_to_many :dispositions
+    has_and_belongs_to_many :contexts
 
     field :base_form
-    field :past_form
-    field :present_participle
-    field :past_participle
-    field :transitive?,  type: Boolean, default: false
-    field :finite?,      type: Boolean, default: false
-    field :linking?,     type: Boolean, default: false
-    field :indicative?,  type: Boolean, default: false
-    field :imperative?,  type: Boolean, default: false
-    field :subjunctive?, type: Boolean, default: false
+    field :is_transitive,  type: Boolean, default: false
+    field :is_finite,      type: Boolean, default: false
+    field :is_linking,     type: Boolean, default: false
+    field :is_indicative,  type: Boolean, default: false
+    field :is_imperative,  type: Boolean, default: false
+    field :is_subjunctive, type: Boolean, default: false
+
+    attr_accessor :person
+    attr_accessor :plurality
 
     def requires_object?
       self.transitive?
+    end
+
+    def is_positive?
+      self.disposition.positivity > 5
+    end
+
+    def is_negative?
+      self.disposition.positivity < 5
+    end
+
+    def is_neutral?
+      self.disposition == 5
     end
 
   end
