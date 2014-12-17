@@ -1,6 +1,5 @@
-require "markov_grammar/version"
 require 'require_all'
-require 'markov_grammar/'
+require_all 'lib'
 
 module MarkovGrammar
   # Your code goes here...
