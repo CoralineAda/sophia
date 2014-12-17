@@ -10,26 +10,31 @@ module MarkovGrammar
 
     def prepare
       File.open("data/structures.txt", "w") do |file|
-        file.puts sentence_structures
+        file.puts sentence_structures.join(". ")
       end
     end
 
     def dictionary
       return @dictionary if @dictionary
-      @dictionary ||= MarkyMarkov::TemporaryDictionary.new
+      @dictionary ||= ::MarkyMarkov::Dictionary.new('./data/dictionary')
       @dictionary.parse_file('./data/structures.txt')
+      @dictionary.save_dictionary!
       @dictionary
     end
 
-    def split_corpus
-      @split_corpus = self.corpus.split.map do |word|
-        word.gsub(/[^a-z]$/, '')
-      end
+    def words_from(text)
+      text.split.map do |word|
+        word = word.gsub(/[^a-z]$/, '')
+        word = word.gsub(/^[^a-z]+/, '')
+        word = word.gsub(/'./, '')
+        word = word.gsub(/'ll/, '')
+        word = word.split('--')
+      end.flatten
     end
 
     def replace_nouns
       Grammar::PartsOfSpeech.probable_nouns_from(self.corpus).each do |noun|
-        self.split_corpus.join(' ').gsub(noun, 'noun').split
+        words_from.join(' ').gsub(noun, 'noun').split
       end
     end
 
@@ -66,8 +71,10 @@ module MarkovGrammar
 
     def bare_words
       @bare_words ||= with_initial_substitutions.map do |sentence|
-        sentence.split.map do |word|
+        words_from(sentence).map do |word|
           word = word.gsub(/[^a-z]+$/i, '')
+          word = word.gsub(/^[^a-z]+/i, '')
+          word = word.downcase
           parts_of_speech.include?(word) ? '|' : word
         end.join(' ')
       end
@@ -102,11 +109,16 @@ module MarkovGrammar
         text = corpus.gsub(/(#{Grammar::PartsOfSpeech::HONORIFICS * '|'})/i, '\1@@@')
         text = text.split(/[\.\?\!\;\,] /)
         text = text.map{|t| t.gsub('@@@', '')}
+        text = words_from(text.join(' '))
       end
     end
 
     def sentence_structures
-      @sentence_structures ||= with_final_substitions.compact.uniq
+      @sentence_structures ||= begin
+        candidates = with_final_substitions.compact.uniq.select{|s| s.split.length < 7}
+        candidates.select{|candidate| candidate.include?('noun')}
+        candidates.select{|candidate| candidate.include?('verb')}
+      end
     end
 
     def categorized_word_list

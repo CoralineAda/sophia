@@ -7,7 +7,7 @@ module MarkovGrammar
     end
 
     def parser
-      @parser ||= MarkovGrammar::Parser.new
+      @parser ||= MarkovGrammar::Parser.new(File.read('./data/corpus.txt'))
     end
 
     def sentence_structure

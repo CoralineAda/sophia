@@ -1,0 +1,13 @@
+development:
+  sessions:
+    default:
+      database: markov_grammar_dev
+      hosts:
+        - localhost:27017
+
+test:
+  sessions:
+    default:
+      database: markov_grammar_test
+      hosts:
+        - localhost:27017
