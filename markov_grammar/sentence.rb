@@ -3,6 +3,11 @@ module MarkovGrammar
 
     attr_reader :subject, :disposition, :context, :tense
 
+    STRUCTURES = [
+      [:subject_structure, :identity_verb, :predicate_structure],
+      [:subject_structure, :verb_structure_for_action, :predicate_structure_for_action]
+    ]
+
     def self.with_subject(subject)
       new(subject: subject)
     end
@@ -15,13 +20,14 @@ module MarkovGrammar
       @tense = [:present, :past, :present_participle].sample
     end
 
-    def generate(structure_type=:description)
-      words = structure(structure_type).flatten.map{|elem| elem && send(elem) }.compact
+    def render
+      words = build_structure(STRUCTURES.sample)
       ([words.first.capitalize] + words[1..-1]).join(' ') << "."
     end
 
     def in_tense(tense)
       @tense = tense
+      self
     end
 
     def with_context(context)
@@ -36,6 +42,13 @@ module MarkovGrammar
 
     private
 
+    def build_structure(structure)
+      structure.flatten.map do |elem|
+        word = send(elem)
+        word.is_a?(Symbol) ? send(word) : word
+      end.compact
+    end
+
     def action_verb
       @action_verb = begin
         candidate = Verb.finite.sample
@@ -46,20 +59,11 @@ module MarkovGrammar
     end
 
     def adjective
-      candidates = Adjective
-      dispositioned = adjectives_with_disposition_from(candidates).to_a
-      contextualized = adjectives_with_context_from(candidates).to_a
-      candidate = (dispositioned & contextualized).sample || dispositioned.sample || contextualized.sample || candidates.sample
-      candidate.base_form
-    end
-
-    def adjectives_with_disposition_from(candidates)
-      return candidates unless self.disposition
-      candidates.with_disposition(self.disposition)
-    end
-
-    def adjectives_with_context_from(candidates)
-      candidates.with_context(self.context)
+      candidate = Adjective.with_disposition(self.disposition).with_context(self.context).sample
+      candidate ||= Adjective.with_disposition(self.disposition).sample
+      candidate ||= Adjective.with_context(self.context).sample
+      candidate ||= Adjective.sample
+      candidate && candidate.base_form
     end
 
     def adverb
@@ -109,21 +113,12 @@ module MarkovGrammar
       end
     end
 
-    def structure(kind)
-#      @structure ||= structures[kind].sample
-      @structure ||= structures.values.sample.sample
+    def predicate_structure
+      [nil, :adjective, [:adverb, :adjective], :object_in_form_with_adjective].sample
     end
 
-    def subject_structures
-      [:subject_in_form, :subject_in_form_with_adjective]
-    end
-
-    def predicate_structures
-      [nil, :adjective, [:adverb, :adjective], :object_in_form_with_adjective]
-    end
-
-    def predicate_structures_for_actions
-      [:adverb, predicate_structures].flatten
+    def predicate_structure_for_action
+      [:adverb, predicate_structure].flatten.sample
     end
 
     def subject_in_form
@@ -137,33 +132,18 @@ module MarkovGrammar
     def subject_in_form_with_adjective
       return subject.base_form if subject.is_proper
       if subject.needs_article?
-        form = Article.join_with_matching(article, "#{adjective} #{subject.base_form_or_synonym}")
+        Article.join_with_matching(article, "#{adjective} #{subject.base_form_or_synonym}")
       else
         "#{adjective} #{subject.base_form_or_synonym}"
       end
     end
 
-    def structures
-      {
-        description: [
-          [
-            subject_structures.sample,
-            :identity_verb,
-            predicate_structures.sample
-          ]
-        ],
-        action: [
-          [
-            subject_structures.sample,
-            verb_structures_for_actions.sample,
-            predicate_structures_for_actions.sample
-          ]
-        ]
-      }
+    def subject_structure
+      [:subject_in_form, :subject_in_form_with_adjective].sample
     end
 
-    def verb_structures_for_actions
-      [:action_verb, :adverb_in_form_with_action_verb]
+    def verb_structure_for_action
+      [:action_verb, :adverb_in_form_with_action_verb].sample
     end
 
   end
