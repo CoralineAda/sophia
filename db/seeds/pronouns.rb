@@ -194,3 +194,56 @@ MarkovGrammar::Pronoun.create(
   is_possessive: true
 )
 
+MarkovGrammar::Pronoun.create(
+  base_form: "everyone",
+  plurality: :plural, #FIXME sure?
+  person: :third
+)
+
+MarkovGrammar::Pronoun.create(
+  base_form: "noone",
+  plurality: :singular,
+  person: :third
+)
+
+MarkovGrammar::Pronoun.create(
+  base_form: "none",
+  plurality: :plural,
+  person: :third
+)
+
+MarkovGrammar::Pronoun.create(
+  base_form: "either",
+  plurality: :singular,
+  person: :third
+)
+
+MarkovGrammar::Pronoun.create(
+  base_form: "neither",
+  plurality: :singular,
+  person: :third
+)
+
+MarkovGrammar::Pronoun.create(
+  base_form: "this",
+  plurality: :singular,
+  person: :third
+)
+
+MarkovGrammar::Pronoun.create(
+  base_form: "those",
+  plurality: :plural,
+  person: :third
+)
+
+MarkovGrammar::Pronoun.create(
+  base_form: "these",
+  plurality: :plural,
+  person: :third
+)
+
+MarkovGrammar::Pronoun.create(
+  base_form: "that",
+  plurality: :singular,
+  person: :third
+)

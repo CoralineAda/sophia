@@ -1,10 +1,7 @@
 module MarkovGrammar
-  class Adjective
+  class Preposition
 
     include Mongoid::Document
-    include Grammar::Stems
-    include Disposition::HasContext
-    include Disposition::HasPositivity
 
     validates_uniqueness_of :base_form
 

@@ -121,3 +121,27 @@ MarkovGrammar::Noun.create(
   is_countable: true,
   contexts: ["nature", "barrier", "plant", "living thing"]
 )
+
+MarkovGrammar::Noun.create(
+  base_form: "time",
+  plurality: :singular,
+  is_proper: false,
+  is_countable: true,
+  contexts: ["time", "duration"]
+)
+
+MarkovGrammar::Noun.create(
+  base_form: "year",
+  plurality: :singular,
+  is_proper: false,
+  is_countable: true,
+  contexts: ["time", "duration"]
+)
+
+MarkovGrammar::Noun.create(
+  base_form: "person",
+  plurality: :singular,
+  is_proper: false,
+  is_countable: true,
+  contexts: ["living thing", "person"]
+)

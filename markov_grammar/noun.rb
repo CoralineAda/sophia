@@ -3,8 +3,9 @@ module MarkovGrammar
 
     include Mongoid::Document
     include Grammar::Stems
-    include Disposition::HasPositivity
+    include Disposition::HasContext
     include Disposition::HasGender
+    include Disposition::HasPositivity
 
     validates_uniqueness_of :base_form
 
@@ -13,14 +14,9 @@ module MarkovGrammar
     field :is_proper,     type: Boolean, default: false
     field :is_countable,  type: Boolean, default: true
     field :is_collective, type: Boolean, default: false
-    field :context,       type: Array,   default: []
 
     def self.from(candidate)
       where(stem: Lingua.stemmer(candidate)).first
-    end
-
-    def self.with_context(context)
-      any_in(contexts: context)
     end
 
     def self.common

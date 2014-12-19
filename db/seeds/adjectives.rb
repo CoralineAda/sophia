@@ -25,6 +25,12 @@ MarkovGrammar::Adjective.create(
 )
 
 MarkovGrammar::Adjective.create(
+  base_form: "tepid",
+  disposition: MarkovGrammar::Disposition::HasPositivity::POSITIVITIES[:negative],
+  contexts: ["temperature", "physical trait"]
+)
+
+MarkovGrammar::Adjective.create(
   base_form: "sleepy",
   disposition: MarkovGrammar::Disposition::HasPositivity::POSITIVITIES[:negative],
   contexts: ["attentiveness"]

@@ -4,13 +4,12 @@ module MarkovGrammar
     include Mongoid::Document
     include Grammar::NaiveTense
     include Grammar::Stems
+    include Disposition::HasContext
     include Disposition::HasPositivity
 
-    has_and_belongs_to_many :contexts
     validates_uniqueness_of :base_form
 
     field :base_form
-    field :is_regular,     type: Boolean, default: true
     field :is_identifying, type: Boolean, default: false # expresses identity
     field :is_transitive,  type: Boolean, default: false # requires an object
     field :is_finite,      type: Boolean, default: false # makes assertion
