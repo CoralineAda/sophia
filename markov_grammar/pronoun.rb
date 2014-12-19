@@ -3,6 +3,7 @@ module MarkovGrammar
 
     include Mongoid::Document
     include Disposition::HasGender
+    include Behavior::CanBeSampled
 
     validates_uniqueness_of :base_form
 

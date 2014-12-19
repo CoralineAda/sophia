@@ -12,7 +12,8 @@ MarkovGrammar::Verb.create(
   base_form: "sit",
   contexts: ["action", "motion", "position"],
   is_finite: true,
-  ed_form: "sat"
+  ed_form: "sat",
+  ing_form: "sitting"
 )
 
 MarkovGrammar::Verb.create(
@@ -91,7 +92,7 @@ MarkovGrammar::Verb.create(
   base_form: "see",
   contexts: ["action", "sense"],
   is_finite: true,
-  ed_form: "saw"
+  ed_form: "saw",
   ing_form: "seeing"
 )
 

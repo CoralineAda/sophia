@@ -8,7 +8,8 @@ module MarkovGrammar
     end
 
     def initialize(subject: nil, disposition: nil, context: nil)
-      @subject = subject && Noun.from(subject) || Noun.all.sample
+      @subject = subject && Noun.from(subject) || Noun.sample
+      @subject.enable_synonyms = true
       @disposition = disposition
       @context = context || Meta::Context.all.sample
     end
@@ -47,7 +48,7 @@ module MarkovGrammar
     end
 
     def adverb
-      Adverb.all.sample.base_form
+      Adverb.sample.base_form
     end
 
     def adverb_in_form_with_action_verb
@@ -71,24 +72,26 @@ module MarkovGrammar
         candidates = Noun.common
         candidates = candidates.with_context(self.context)
         candidates = candidates.where(plurality: subject.plurality)
-        candidates.sample || Noun.fallback
+        candidate = candidates.sample || Noun.fallback
+        candidate.enable_synonyms = true
+        candidate
       end
     end
 
     def object_in_form
       if object.needs_article?
-        Article.join_with_matching(article, object.base_form)
+        Article.join_with_matching(article, object.base_form_or_synonym)
       else
-        object.base_form
+        object.base_form_or_synonym
       end
     end
 
     def object_in_form_with_adjective
       return object.base_from if object.is_proper
       if object.needs_article?
-        form = Article.join_with_matching(article, "#{adjective} #{object.base_form}")
+        form = Article.join_with_matching(article, "#{adjective} #{object.base_form_or_synonym}")
       else
-        "#{adjective} #{object.base_form}"
+        "#{adjective} #{object.base_form_or_synonym}"
       end
     end
 
@@ -111,18 +114,18 @@ module MarkovGrammar
 
     def subject_in_form
       if subject.needs_article?
-        Article.join_with_matching(article, subject.base_form)
+        Article.join_with_matching(article, subject.base_form_or_synonym)
       else
-        subject.base_form
+        subject.base_form_or_synonym
       end
     end
 
     def subject_in_form_with_adjective
       return subject.base_form if subject.is_proper
       if subject.needs_article?
-        form = Article.join_with_matching(article, "#{adjective} #{subject.base_form}")
+        form = Article.join_with_matching(article, "#{adjective} #{subject.base_form_or_synonym}")
       else
-        "#{adjective} #{subject.base_form}"
+        "#{adjective} #{subject.base_form_or_synonym}"
       end
     end
 

@@ -15,7 +15,37 @@ MarkovGrammar::Noun.create(
   is_proper: false,
   gender: MarkovGrammar::Disposition::HasGender::FEMININE,
   is_countable: true,
+  contexts: ["living thing", "person", "family member"],
+  synonyms: ["sis"]
+)
+
+MarkovGrammar::Noun.create(
+  base_form: "brother",
+  plurality: :singular,
+  is_proper: false,
+  gender: MarkovGrammar::Disposition::HasGender::MASCULINE,
+  is_countable: true,
   contexts: ["living thing", "person", "family member"]
+)
+
+MarkovGrammar::Noun.create(
+  base_form: "mother",
+  plurality: :singular,
+  is_proper: false,
+  gender: MarkovGrammar::Disposition::HasGender::FEMININE,
+  is_countable: true,
+  contexts: ["living thing", "person", "family member"],
+  synonyms: ["mom", "ma", "mommy"]
+)
+
+MarkovGrammar::Noun.create(
+  base_form: "father",
+  plurality: :singular,
+  is_proper: false,
+  gender: MarkovGrammar::Disposition::HasGender::MASCULINE,
+  is_countable: true,
+  contexts: ["living thing", "person", "family member"],
+  synonyms: ["dad", "da", "daddy"]
 )
 
 MarkovGrammar::Noun.create(
@@ -31,7 +61,8 @@ MarkovGrammar::Noun.create(
   plurality: :singular,
   is_proper: false,
   is_countable: true,
-  contexts: ["object", "information",]
+  contexts: ["object", "information"],
+  synonyms: ["tome", "volume"]
 )
 
 MarkovGrammar::Noun.create(
@@ -39,7 +70,8 @@ MarkovGrammar::Noun.create(
   plurality: :singular,
   is_proper: false,
   is_countable: true,
-  contexts: ["object", "information", "representation", "sensory"]
+  contexts: ["object", "information", "representation", "sensory"],
+  synonyms: ["image", "painting", "drawing", "sketch"]
 )
 
 MarkovGrammar::Noun.create(
@@ -47,7 +79,8 @@ MarkovGrammar::Noun.create(
   plurality: :singular,
   is_proper: false,
   is_countable: true,
-  contexts: ["information"]
+  contexts: ["information"],
+  synonyms: ["talk", "chat"]
 )
 
 MarkovGrammar::Noun.create(
@@ -55,7 +88,8 @@ MarkovGrammar::Noun.create(
   plurality: :singular,
   is_proper: false,
   is_countable: true,
-  contexts: ["living thing", "animal"]
+  contexts: ["living thing", "animal"],
+  synonyms: ["hare", "bunny", "bunny rabbit"]
 )
 
 MarkovGrammar::Noun.create(
@@ -63,7 +97,8 @@ MarkovGrammar::Noun.create(
   plurality: :singular,
   is_proper: false,
   is_countable: true,
-  contexts: ["time", "machine"]
+  contexts: ["time", "machine"],
+  synonyms: ["timepiece", "pocket watch"]
 )
 
 MarkovGrammar::Noun.create(
@@ -87,7 +122,8 @@ MarkovGrammar::Noun.create(
   plurality: :singular,
   is_proper: false,
   is_countable: true,
-  contexts: ["body part", "information"]
+  contexts: ["body part", "information"],
+  synonyms: ["consciousness"]
 )
 
 MarkovGrammar::Noun.create(
@@ -103,7 +139,8 @@ MarkovGrammar::Noun.create(
   plurality: :singular,
   is_proper: false,
   is_countable: true,
-  contexts: ["place", "nature"]
+  contexts: ["place", "nature"],
+  synonyms: ["meadow"]
 )
 
 MarkovGrammar::Noun.create(
@@ -111,7 +148,8 @@ MarkovGrammar::Noun.create(
   plurality: :singular,
   is_proper: false,
   is_countable: true,
-  contexts: ["opening", "container"]
+  contexts: ["opening", "container"],
+  synonyms: ["opening", "crack", "crevasse"]
 )
 
 MarkovGrammar::Noun.create(
@@ -119,7 +157,8 @@ MarkovGrammar::Noun.create(
   plurality: :singular,
   is_proper: false,
   is_countable: true,
-  contexts: ["nature", "barrier", "plant", "living thing"]
+  contexts: ["nature", "barrier", "plant", "living thing"],
+  synonyms: ["hedgerow", "shrub", "bush"],
 )
 
 MarkovGrammar::Noun.create(

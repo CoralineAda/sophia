@@ -3,6 +3,7 @@ module MarkovGrammar
 
     include Mongoid::Document
     include Grammar::Stems
+    include Behavior::CanBeSampled
     include Disposition::HasContext
     include Disposition::HasGender
     include Disposition::HasPositivity
@@ -14,6 +15,9 @@ module MarkovGrammar
     field :is_proper,     type: Boolean, default: false
     field :is_countable,  type: Boolean, default: true
     field :is_collective, type: Boolean, default: false
+    field :synonyms,      type: Array,   default: []
+
+    attr_accessor :enable_synonyms
 
     def self.from(candidate)
       where(stem: Lingua.stemmer(candidate)).first
@@ -27,6 +31,11 @@ module MarkovGrammar
       where(is_proper: false)
     end
 
+    def base_form_or_synonym
+      return self.base_form unless enable_synonyms && self.synonyms.any?
+      [[self.base_form], self.synonyms].sample.sample
+    end
+
     def needs_article?
       self.is_countable && ! self.is_proper
     end
@@ -37,12 +46,12 @@ module MarkovGrammar
     end
 
     def plural
-      return self.base_form unless self.is_countable
-      self.base_form.pluralize
+      return self.base_form_or_synonym unless self.is_countable
+      self.base_form_or_synonym.pluralize
     end
 
     def possessive_singular
-      form = "#{self.base_form}'s"
+      form = "#{self.base_form_or_synonym}'s"
       form.gsub!(/s's/, "'")
     end
 

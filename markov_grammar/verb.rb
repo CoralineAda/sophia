@@ -6,6 +6,7 @@ module MarkovGrammar
     include Grammar::Stems
     include Disposition::HasContext
     include Disposition::HasPositivity
+    include Behavior::CanBeSampled
 
     validates_uniqueness_of :base_form
 
