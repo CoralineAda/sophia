@@ -2,6 +2,7 @@ module MarkovGrammar
   class Pronoun
 
     include Mongoid::Document
+    include Behavior::Agrees
     include Disposition::HasGender
     include Behavior::CanBeSampled
 

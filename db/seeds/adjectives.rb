@@ -3,30 +3,35 @@ require './markov_grammar'
 MarkovGrammar::Adjective.create(
   base_form: "hot",
   disposition: MarkovGrammar::Disposition::HasPositivity::POSITIVITIES[:negative],
+  is_physical: true,
   contexts: ["temperature", "physical trait"]
 )
 
 MarkovGrammar::Adjective.create(
   base_form: "cold",
   disposition: MarkovGrammar::Disposition::HasPositivity::POSITIVITIES[:negative],
+  is_physical: true,
   contexts: ["temperature", "physical trait"]
 )
 
 MarkovGrammar::Adjective.create(
   base_form: "warm",
   disposition: MarkovGrammar::Disposition::HasPositivity::POSITIVITIES[:positive],
+  is_physical: true,
   contexts: ["temperature", "physical trait"]
 )
 
 MarkovGrammar::Adjective.create(
   base_form: "cool",
   disposition: MarkovGrammar::Disposition::HasPositivity::POSITIVITIES[:positive],
+  is_physical: true,
   contexts: ["temperature", "physical trait"]
 )
 
 MarkovGrammar::Adjective.create(
   base_form: "tepid",
   disposition: MarkovGrammar::Disposition::HasPositivity::POSITIVITIES[:negative],
+  is_physical: true,
   contexts: ["temperature", "physical trait"]
 )
 
@@ -69,6 +74,7 @@ MarkovGrammar::Adjective.create(
 MarkovGrammar::Adjective.create(
   base_form: "large",
   disposition: MarkovGrammar::Disposition::HasPositivity::POSITIVITIES[:neutral],
+  is_physical: true,
   contexts: ["size", "physical trait"]
 )
 
@@ -77,6 +83,7 @@ colors = ["black", "dim gray", "dim grey", "gray", "grey", "dark gray", "dark gr
 colors.each do |color|
   MarkovGrammar::Adjective.create(
     base_form: color,
+    is_physical: true,
     disposition: MarkovGrammar::Disposition::HasPositivity::POSITIVITIES[:neutral],
     contexts: ["color", "physical trait"]
   )

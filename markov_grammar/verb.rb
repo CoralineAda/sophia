@@ -1,12 +1,14 @@
+#TODO negative forms of verbs
 module MarkovGrammar
   class Verb
 
     include Mongoid::Document
     include Grammar::NaiveTense
     include Grammar::Stems
+    include Behavior::Agrees
+    include Behavior::CanBeSampled
     include Disposition::HasContext
     include Disposition::HasPositivity
-    include Behavior::CanBeSampled
 
     validates_uniqueness_of :base_form
 

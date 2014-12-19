@@ -1,8 +1,10 @@
+#TODO physical nouns get adjectives that match; matches_in(attribute, word_1, word_2)
 module MarkovGrammar
   class Noun
 
     include Mongoid::Document
     include Grammar::Stems
+    include Behavior::Agrees
     include Behavior::CanBeSampled
     include Disposition::HasContext
     include Disposition::HasGender
@@ -15,6 +17,7 @@ module MarkovGrammar
     field :is_proper,     type: Boolean, default: false
     field :is_countable,  type: Boolean, default: true
     field :is_collective, type: Boolean, default: false
+    field :is_physical,   type: Boolean, default: false
     field :synonyms,      type: Array,   default: []
 
     attr_accessor :enable_synonyms
