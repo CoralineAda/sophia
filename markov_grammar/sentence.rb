@@ -1,22 +1,37 @@
 module MarkovGrammar
   class Sentence
 
-    attr_reader :subject, :disposition, :context
+    attr_reader :subject, :disposition, :context, :tense
 
-    def self.about(subject:nil, disposition: nil, context: nil)
-      new(subject: subject, disposition: disposition, context: context).generate(:description)
+    def self.with_subject(subject)
+      new(subject: subject)
     end
 
-    def initialize(subject: nil, disposition: nil, context: nil)
-      @subject = subject && Noun.from(subject) || Noun.sample
+    def initialize(subject: nil)
+      @subject = Noun.from(subject) || Noun.sample
       @subject.enable_synonyms = true
-      @disposition = disposition
-      @context = context || Meta::Context.all.sample
+      @context = Meta::Context.all.sample
+      @disposition = [:positive, :negative, :neutral].sample
+      @tense = [:present, :past, :present_participle].sample
     end
 
-    def generate(structure_type)
-      words = structure(structure_type).map{|elem| send(elem) }
+    def generate(structure_type=:description)
+      words = structure(structure_type).flatten.map{|elem| elem && send(elem) }.compact
       ([words.first.capitalize] + words[1..-1]).join(' ') << "."
+    end
+
+    def in_tense(tense)
+      @tense = tense
+    end
+
+    def with_context(context)
+      @context = context
+      self
+    end
+
+    def with_disposition(disposition)
+      @disposition = disposition
+      self
     end
 
     private
@@ -31,7 +46,7 @@ module MarkovGrammar
     end
 
     def adjective
-      candidates = Adjective.with_random_context
+      candidates = Adjective
       dispositioned = adjectives_with_disposition_from(candidates).to_a
       contextualized = adjectives_with_context_from(candidates).to_a
       candidate = (dispositioned & contextualized).sample || dispositioned.sample || contextualized.sample || candidates.sample
@@ -48,7 +63,7 @@ module MarkovGrammar
     end
 
     def adverb
-      Adverb.sample.base_form
+      Adverb.with_disposition(self.disposition).sample.base_form
     end
 
     def adverb_in_form_with_action_verb
@@ -65,7 +80,6 @@ module MarkovGrammar
       candidate.person = :third
       candidate.send(tense)
     end
-
 
     def object
       @object ||= begin
@@ -105,7 +119,7 @@ module MarkovGrammar
     end
 
     def predicate_structures
-      [:adjective, :object_in_form_with_adjective]
+      [nil, :adjective, [:adverb, :adjective], :object_in_form_with_adjective]
     end
 
     def predicate_structures_for_actions
@@ -146,10 +160,6 @@ module MarkovGrammar
           ]
         ]
       }
-    end
-
-    def tense
-      [:present, :past, :present_participle].sample
     end
 
     def verb_structures_for_actions

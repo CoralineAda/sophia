@@ -100,7 +100,8 @@ MarkovGrammar::Verb.create(
   base_form: "run",
   contexts: ["action", "motion"],
   is_finite: true,
-  ed_form: "ran"
+  ed_form: "ran",
+  ing_form: "running"
 )
 
 MarkovGrammar::Verb.create(

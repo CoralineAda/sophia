@@ -13,7 +13,7 @@ require_all 'markov_grammar'
 
 module MarkovGrammar
 
-  def self.talk
+  def self.sentence
     MarkovGrammar::Sentence
   end
 

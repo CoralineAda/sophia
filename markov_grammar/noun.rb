@@ -20,7 +20,13 @@ module MarkovGrammar
     attr_accessor :enable_synonyms
 
     def self.from(candidate)
-      where(stem: Lingua.stemmer(candidate)).first
+      where(stem: Lingua.stemmer(candidate)).first || construct(candidate)
+    end
+
+    def self.construct(candidate)
+      noun = new(base_form: candidate)
+      noun.is_proper = (noun.base_form =~ /^[A-Z]/) > -1
+      noun
     end
 
     def self.fallback
