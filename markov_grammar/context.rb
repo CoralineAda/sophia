@@ -1,14 +1,10 @@
 module MarkovGrammar
   class Context
 
-    include ::Mongoid::Document
-
-    has_and_belongs_to_many :verbs
-    has_and_belongs_to_many :nouns
-    has_and_belongs_to_many :adjectives
-    validates_uniqueness_of :name
-
-    field :name
+    def self.all
+      all = MarkovGrammar::Noun.all.map(&:contexts) + MarkovGrammar::Adjective.all.map(&:contexts)
+      all.flatten.uniq.sort
+    end
 
   end
 end
