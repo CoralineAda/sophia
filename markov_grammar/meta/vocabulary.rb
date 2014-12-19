@@ -3,12 +3,13 @@ module MarkovGrammar
     module Vocabulary
 
       def self.all
-        adjectives + articles + nouns + prepositions + pronouns + verbs
+        adjectives + adverbs + articles + nouns + prepositions + pronouns + verbs
       end
 
       def self.breakdown
         [
           "#{adjectives.count} adjectives",
+          "#{adverbs.count} adverbs",
           "#{articles.count} articles",
           "#{nouns.count} nouns",
           "#{prepositions.count} prepositions",
@@ -19,6 +20,10 @@ module MarkovGrammar
 
       def self.adjectives
         MarkovGrammar::Noun.all
+      end
+
+      def self.adverbs
+        MarkovGrammar::Adverb.all
       end
 
       def self.articles

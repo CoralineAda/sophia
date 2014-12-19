@@ -92,6 +92,7 @@ MarkovGrammar::Verb.create(
   contexts: ["action", "sense"],
   is_finite: true,
   ed_form: "saw"
+  ing_form: "seeing"
 )
 
 MarkovGrammar::Verb.create(
