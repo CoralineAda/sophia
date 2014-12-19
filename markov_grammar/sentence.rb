@@ -1,15 +1,16 @@
 module MarkovGrammar
   class Sentence
 
-    attr_reader :subject, :disposition
+    attr_reader :subject, :disposition, :context
 
-    def self.about(subject, disposition=nil)
-      new(subject: subject, disposition: disposition).generate
+    def self.about(subject, disposition: nil, context: nil)
+      new(subject: subject, disposition: disposition, context: context).generate(:description)
     end
 
-    def initialize(subject:, disposition:)
+    def initialize(subject:, disposition: nil, context: nil)
       @subject = Noun.from(subject)
       @disposition = disposition
+      @context = context if MarkovGrammar::Meta::Context.all.include?(context)
     end
 
     def article
@@ -27,8 +28,9 @@ module MarkovGrammar
     def object
       @object ||= begin
         candidates = MarkovGrammar::Noun.common
+        candidates = candidates.with_context(self.context) if self.context
         candidates = candidates.where(plurality: subject.plurality)
-        candidates.sample
+        candidates.sample || MarkovGrammar::Noun.fallback
       end
     end
 
@@ -48,17 +50,24 @@ module MarkovGrammar
       end
     end
 
-    def structure
-      [
-        [:noun, :identity_verb, :adjective],
-        [:noun, :identity_verb, :object_in_form],
-        [:noun, :identity_verb, :object_in_form_with_adjective],
-        [:noun, :action_verb, :object_in_form]
-      ].sample
+    def structure(kind)
+      @structure ||= structures[kind].sample
     end
 
-    def generate
-      words = structure.map{|elem| public_send(elem) }
+    def structures
+      {
+        description: [
+          [:noun, :identity_verb, :adjective],
+          [:noun, :identity_verb, :object_in_form_with_adjective]
+        ],
+        action: [
+          [:noun, :action_verb, :object_in_form]
+        ]
+      }
+    end
+
+    def generate(structure_type)
+      words = structure(structure_type).map{|elem| public_send(elem) }
       ([words.first.capitalize] + words[1..-1]).join(' ') << "."
     end
 
@@ -80,13 +89,22 @@ module MarkovGrammar
       candidate.send(tense)
     end
 
+    def adjectives_with_disposition_from(candidates)
+      return candidates unless self.disposition
+      candidates.with_disposition(self.disposition)
+    end
+
+    def adjectives_with_context_from(candidates)
+      return candidates unless self.context
+      candidates.with_context(self.context)
+    end
+
     def adjective
-      if self.disposition
-        candidates = MarkovGrammar::Adjective.all.with_disposition(self.disposition)
-      else
-        candidates = MarkovGrammar::Adjective.all
-      end
-      candidates.sample.base_form
+      candidates = MarkovGrammar::Adjective.all
+      dispositioned = adjectives_with_disposition_from(candidates).to_a
+      contextualized = adjectives_with_context_from(candidates).to_a
+      candidate = (dispositioned & contextualized).sample || contextualized.sample || candidates.sample
+      candidate.base_form
     end
 
   end

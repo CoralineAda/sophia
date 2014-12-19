@@ -3,6 +3,7 @@ require 'bundler'
 require 'bundler/setup'
 require 'dotenv'
 require 'require_all'
+require 'pry'
 
 Dotenv.load
 Bundler.require

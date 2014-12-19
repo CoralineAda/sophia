@@ -8,7 +8,7 @@ module MarkovGrammar
       end
 
       module ClassMethods
-        def self.with_context(context)
+        def with_context(context)
           any_in(contexts: context)
         end
       end

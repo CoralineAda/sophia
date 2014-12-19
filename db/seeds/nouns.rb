@@ -31,7 +31,7 @@ MarkovGrammar::Noun.create(
   plurality: :singular,
   is_proper: false,
   is_countable: true,
-  contexts: ["object", "information"]
+  contexts: ["object", "information",]
 )
 
 MarkovGrammar::Noun.create(
@@ -39,7 +39,7 @@ MarkovGrammar::Noun.create(
   plurality: :singular,
   is_proper: false,
   is_countable: true,
-  contexts: ["object", "information"]
+  contexts: ["object", "information", "representation", "sensory"]
 )
 
 MarkovGrammar::Noun.create(

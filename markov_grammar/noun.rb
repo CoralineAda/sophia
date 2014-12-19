@@ -19,6 +19,10 @@ module MarkovGrammar
       where(stem: Lingua.stemmer(candidate)).first
     end
 
+    def self.fallback
+      new(base_form: 'thing')
+    end
+
     def self.common
       where(is_proper: false)
     end
