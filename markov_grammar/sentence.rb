@@ -1,12 +1,12 @@
 module MarkovGrammar
   class Sentence
 
-    attr_reader :subject, :disposition, :context, :tense
+    attr_reader :subject, :disposition, :context, :tense, :sentence_type
 
-    STRUCTURES = [
-      [:subject_structure, :identity_verb, :predicate_structure],
-      [:subject_structure, :verb_structure_for_action, :predicate_structure_for_action]
-    ]
+    STRUCTURES = {
+      identity: [[:subject_structure, :verb_structure_for_identity, :predicate_structure_for_identity]],
+      action:   [[:subject_structure, :verb_structure_for_action, :predicate_structure_for_action]]
+    }
 
     def self.with_subject(subject)
       new(subject: subject)
@@ -17,11 +17,12 @@ module MarkovGrammar
       @subject.enable_synonyms = true
       @context = Meta::Context.all.sample
       @disposition = [:positive, :negative, :neutral].sample
+      @sentence_type = STRUCTURES.keys.sample
       @tense = [:present, :past, :present_participle].sample
     end
 
     def render
-      words = build_structure(STRUCTURES.sample)
+      words = build_structure(STRUCTURES[sentence_type].sample)
       ([words.first.capitalize] + words[1..-1]).join(' ') << "."
     end
 
@@ -40,10 +41,15 @@ module MarkovGrammar
       self
     end
 
+    def of_type(sentence_type)
+      @sentence_type = sentence_type
+      self
+    end
+
     private
 
     def build_structure(structure)
-      structure.flatten.map do |elem|
+      structure.map do |elem|
         word = send(elem)
         word.is_a?(Symbol) ? send(word) : word
       end.compact
@@ -72,6 +78,14 @@ module MarkovGrammar
 
     def adverb_in_form_with_action_verb
       ["#{adverb} #{action_verb}", "#{action_verb} #{adverb}"].sample
+    end
+
+    def adverb_in_form_with_identity_verb
+      ["#{identity_verb} #{adverb}"].sample
+    end
+
+    def adverb_in_form_with_adjective
+      ["#{adverb} #{adjective}"].sample
     end
 
     def article
@@ -113,8 +127,14 @@ module MarkovGrammar
       end
     end
 
-    def predicate_structure
-      [nil, :adjective, [:adverb, :adjective], :object_in_form_with_adjective].sample
+    def predicate_structure_for_identity
+      [
+        nil,
+        :adjective,
+        :adverb_in_form_with_adjective,
+        :object_in_form_with_adjective,
+        :adverb
+      ].sample
     end
 
     def predicate_structure_for_action
@@ -144,6 +164,10 @@ module MarkovGrammar
 
     def verb_structure_for_action
       [:action_verb, :adverb_in_form_with_action_verb].sample
+    end
+
+    def verb_structure_for_identity
+      [:identity_verb, :adverb_in_form_with_identity_verb].sample
     end
 
   end
