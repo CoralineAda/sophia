@@ -70,6 +70,10 @@ module MarkovGrammar
       Adverb.with_disposition(self.disposition).sample.base_form
     end
 
+    def adverb_and_adjective_in_form
+      "#{adverb} #{adjective}"
+    end
+    
     def adverb_in_form_with_action_verb
       ["#{adverb} #{action_verb}", "#{action_verb} #{adverb}"].sample
     end
@@ -114,7 +118,7 @@ module MarkovGrammar
     end
 
     def predicate_structure
-      [nil, :adjective, [:adverb, :adjective], :object_in_form_with_adjective].sample
+      [nil, :adjective, :adverb_and_adjective_in_form, :object_in_form_with_adjective].sample
     end
 
     def predicate_structure_for_action
