@@ -120,8 +120,9 @@ MarkovGrammar::Adverb.create(
 )
 
 MarkovGrammar::Adverb.create(
-  base_form: "every",
-  is_frequency: true,
+  base_form: "very",
+  is_verbal: false,
+  is_adjectival: true,
   disposition: MarkovGrammar::Disposition::HasPositivity::POSITIVITIES[:positive],
 )
 

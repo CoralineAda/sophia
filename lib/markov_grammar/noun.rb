@@ -33,7 +33,7 @@ module MarkovGrammar
     end
 
     def self.fallback
-      new(base_form: 'thing')
+      new(base_form: ['thing', 'something'].sample)
     end
 
     def self.common

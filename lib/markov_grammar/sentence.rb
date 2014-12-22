@@ -7,6 +7,9 @@ module MarkovGrammar
     STRUCTURES = {
       identifying: [
         [:subject_phrase_in_form, :verb_phrase_in_form, :predicate_structure_for_identity]
+      ],
+      interrogative: [
+        [:interrogative, :subject_phrase_in_form, :verb_phrase, :predicate_structure_for_identity]
       ]
     }
 
@@ -16,7 +19,7 @@ module MarkovGrammar
 
     def initialize(subject: nil)
       @subject = subject
-      @context = Meta::Context.all.sample
+      @context = :any
       @disposition = [:positive, :negative, :neutral].sample
       @sentence_type = STRUCTURES.keys.sample
       @tense = Verb::TENSES.sample
@@ -67,7 +70,7 @@ module MarkovGrammar
     end
 
     def adverb
-      Adverb.with_disposition(self.disposition).sample.base_form
+      Adverb.with_disposition(self.disposition)
     end
 
     def article
@@ -75,7 +78,7 @@ module MarkovGrammar
     end
 
     def adverb_in_form_with_adjective
-      ["#{adverb} #{adjective}"].sample
+      ["#{adverb.adjectival.sample.base_form} #{adjective}"].sample
     end
 
     def build_structure(structure)
@@ -120,9 +123,14 @@ module MarkovGrammar
       end
     end
 
+    def place_adverb
+      Adverb.geographic.sample.base_form
+    end
+
     def predicate_structure_for_identity
       [
         :adjective,
+        :place_adverb,
         :adverb_in_form_with_adjective,
         :object_in_form_with_adjective,
         :object_in_form
@@ -148,7 +156,7 @@ module MarkovGrammar
     end
 
     def verb_phrase
-      Phrases::Verb.new(verb: verb, adverb: adverb)
+      Phrases::Verb.new(verb: verb, adverb: adverb.verbal.non_geographic.sample.base_form)
     end
 
     def verb_phrase_in_form

@@ -30,6 +30,10 @@ module MarkovGrammar
     attr_accessor :plurality
     attr_accessor :form
 
+    def self.stems
+      all.map(&:stem)
+    end
+
     def self.finite
       where(is_finite: true)
     end

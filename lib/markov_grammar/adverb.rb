@@ -17,6 +17,24 @@ module MarkovGrammar
     field :is_frequency,    type: Boolean, default: false
     field :is_time,         type: Boolean, default: false
     field :is_completeness, type: Boolean, default: false
+    field :is_verbal,       type: Boolean, default: true
+    field :is_adjectival,   type: Boolean, default: false
+
+    def self.verbal
+      where(is_verbal: true)
+    end
+
+    def self.adjectival
+      where(is_adjectival: true)
+    end
+
+    def self.non_geographic
+      where(is_place: false)
+    end
+
+    def self.geographic
+      where(is_place: true)
+    end
 
   end
 end

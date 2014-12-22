@@ -1,5 +1,5 @@
 module MarkovGrammar
-  class Adverb
+  class Conjunction
 
     include Mongoid::Document
     include Behavior::Agrees

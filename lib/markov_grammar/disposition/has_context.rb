@@ -28,6 +28,7 @@ module MarkovGrammar
         end
 
         def with_context(context)
+          return criteria if context == :any
           any_in(contexts: context)
         end
 

@@ -147,3 +147,7 @@ MarkovGrammar::Verb.create(
   ed_form: "knew"
 )
 
+MarkovGrammar::Verb.create(
+  base_form: "play",
+  contexts: ["entertainment"]
+)
