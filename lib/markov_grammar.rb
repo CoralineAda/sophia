@@ -10,7 +10,6 @@ Bundler.require
 Mongoid.load!("config/mongoid.yml")
 
 require_rel 'markov_grammar'
-require_rel 'tasks/database'
 
 module MarkovGrammar
 
