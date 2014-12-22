@@ -24,6 +24,8 @@ module MarkovGrammar
     field :ed_form
     field :ing_form
 
+    TENSES = [:present, :past, :present_participle]
+
     attr_accessor :person
     attr_accessor :plurality
     attr_accessor :form
@@ -55,7 +57,7 @@ module MarkovGrammar
     def inject_adverb(adverb)
       verb_phrase = self.send(form).split
       return "#{adverb} #{verb_phrase[0]}" if verb_phrase.size == 1
-      "#{verb_phrase[-2..0]} #{adverb} #{verb_phrase[-1].join(' ')}"
+      "#{verb_phrase[-2..0].join(' ')} #{adverb} #{verb_phrase[-1]}"
     end
 
     def requires_object?

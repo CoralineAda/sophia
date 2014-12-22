@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'activesupport'
 gem 'dotenv'
+gem 'poro_plus'
 gem 'inflections'
 gem 'marky_markov'
 gem 'mongoid', '~> 3.1.6'

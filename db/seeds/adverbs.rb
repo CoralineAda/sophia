@@ -107,7 +107,7 @@ MarkovGrammar::Adverb.create(
 )
 
 MarkovGrammar::Adverb.create(
-  base_form: "intentionaly",
+  base_form: "intentionally",
   is_purpose: true,
   disposition: MarkovGrammar::Disposition::HasPositivity::POSITIVITIES[:positive],
   contexts: ["demeanor"]
