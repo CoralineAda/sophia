@@ -9,7 +9,8 @@ Dotenv.load
 Bundler.require
 Mongoid.load!("config/mongoid.yml")
 
-require_all 'markov_grammar'
+require_rel 'markov_grammar'
+require_rel 'tasks/database'
 
 module MarkovGrammar
 
