@@ -2,6 +2,7 @@ module MarkovGrammar
   class Sentence
 
     attr_reader :subject, :disposition, :context, :tense, :sentence_type
+    attr_reader :structure_needs_object, :verb
 
     STRUCTURES = {
       identity: [[:subject_structure, :verb_structure_for_identity, :predicate_structure_for_identity]],
@@ -22,7 +23,9 @@ module MarkovGrammar
     end
 
     def render
-      words = build_structure(STRUCTURES[sentence_type].sample)
+      structure = STRUCTURES[sentence_type].sample
+      words = build_structure(structure)
+      p structure
       ([words.first.capitalize] + words[1..-1]).join(' ') << "."
     end
 
@@ -50,18 +53,10 @@ module MarkovGrammar
 
     def build_structure(structure)
       structure.map do |elem|
+        next unless elem
         word = send(elem)
         word.is_a?(Symbol) ? send(word) : word
       end.compact
-    end
-
-    def action_verb
-      @action_verb = begin
-        candidate = Verb.finite.sample
-        candidate.plurality = subject.plurality
-        candidate.person = :third
-        candidate.send(tense)
-      end
     end
 
     def adjective
@@ -77,11 +72,11 @@ module MarkovGrammar
     end
 
     def adverb_in_form_with_action_verb
-      ["#{adverb} #{action_verb}", "#{action_verb} #{adverb}"].sample
+      self.verb.inject_adverb(adverb)
     end
 
     def adverb_in_form_with_identity_verb
-      ["#{identity_verb} #{adverb}"].sample
+      self.verb.inject_adverb(adverb)
     end
 
     def adverb_in_form_with_adjective
@@ -92,16 +87,32 @@ module MarkovGrammar
       Article.matching_plurality(object).indefinite.sample.base_form
     end
 
-    def identity_verb
-      candidate = Verb.identifying.sample
-      candidate.plurality = subject.plurality
-      candidate.person = :third
-      candidate.send(tense)
+     def select_action_verb
+      @verb ||= begin
+        candidate = Verb.finite.sample
+        @structure_needs_object = candidate.is_linking
+        candidate.plurality = subject.plurality
+        candidate.person = :third
+        candidate.form = self.tense
+        candidate
+      end
+      @verb.send(tense)
+    end
+
+   def select_identity_verb
+      @verb ||= begin
+        candidate = Verb.identifying.sample
+        candidate.plurality = subject.plurality
+        candidate.person = :third
+        candidate.form = self.tense
+        candidate
+      end
+      @verb.send(tense)
     end
 
     def object
       @object ||= begin
-        candidates = Noun.common
+        candidates = Noun.common.agreeing_with(subject, [:gender])
         candidates = candidates.with_context(self.context)
         candidates = candidates.where(plurality: subject.plurality)
         candidate = candidates.sample || Noun.fallback
@@ -129,16 +140,32 @@ module MarkovGrammar
 
     def predicate_structure_for_identity
       [
-        nil,
         :adjective,
         :adverb_in_form_with_adjective,
-        :object_in_form_with_adjective,
-        :adverb
+        :object_in_form_with_adjective
       ].sample
     end
 
     def predicate_structure_for_action
-      [:adverb, predicate_structure].flatten.sample
+      [
+        nil,
+        :adverb,
+        :object_in_form,
+        :object_in_form_with_adjective
+      ]
+      if self.structure_needs_object
+        [
+          :object_in_form,
+          :object_in_form_with_adjective
+        ].sample
+      else
+        [
+          nil,
+          :adverb,
+          :object_in_form,
+          :object_in_form_with_adjective
+        ].sample
+      end
     end
 
     def subject_in_form
@@ -162,12 +189,18 @@ module MarkovGrammar
       [:subject_in_form, :subject_in_form_with_adjective].sample
     end
 
+    def verb_in_form
+      self.verb.send(self.tense)
+    end
+
     def verb_structure_for_action
-      [:action_verb, :adverb_in_form_with_action_verb].sample
+      select_action_verb
+      [:verb_in_form, :adverb_in_form_with_action_verb].sample
     end
 
     def verb_structure_for_identity
-      [:identity_verb, :adverb_in_form_with_identity_verb].sample
+      select_identity_verb
+      [:verb_in_form, :adverb_in_form_with_identity_verb].sample
     end
 
   end

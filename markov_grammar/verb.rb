@@ -26,6 +26,7 @@ module MarkovGrammar
 
     attr_accessor :person
     attr_accessor :plurality
+    attr_accessor :form
 
     def self.finite
       where(is_finite: true)
@@ -35,12 +36,26 @@ module MarkovGrammar
       where(is_indicative: true)
     end
 
+    def self.linking
+      where(is_linking: true)
+    end
+
     def self.transitive
       where(is_transitive: true)
     end
 
     def self.identifying
       where(is_identifying: true)
+    end
+
+    def with_form(form)
+      @form ||= form
+    end
+
+    def inject_adverb(adverb)
+      verb_phrase = self.send(form).split
+      return "#{adverb} #{verb_phrase[0]}" if verb_phrase.size == 1
+      "#{verb_phrase[-2..0]} #{adverb} #{verb_phrase[-1].join(' ')}"
     end
 
     def requires_object?

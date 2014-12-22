@@ -48,6 +48,7 @@ MarkovGrammar::Verb.create(
   is_transitive: true,
   is_indicative: true,
   is_identifying: true,
+  is_linking: true,
   ed_form: "was",
   ing_form: "being"
 )
