@@ -1,6 +1,7 @@
 require "bundler/gem_tasks"
 
-Dir.glob('tasks/*.rake').each {|rakefile| import rakefile }
+require 'markov_grammar'
+require 'markov_grammar/vocabulary_tasks'
 
 begin
   Bundler.setup(:default, :development)

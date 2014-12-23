@@ -4,6 +4,8 @@ require 'bundler/setup'
 require 'dotenv'
 require 'require_all'
 require 'pry'
+require 'mongoid'
+require 'poro_plus'
 
 Dotenv.load
 Bundler.require

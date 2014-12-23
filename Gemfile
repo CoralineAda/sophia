@@ -1,18 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'activesupport'
-gem 'dotenv'
-gem 'poro_plus'
-gem 'inflections'
-gem 'marky_markov'
-gem 'mongoid', '~> 3.1.6'
-gem 'require_all'
-gem 'ruby-stemmer', '>=0.8.3'
-gem 'rubyfish'
-
-group :development, :test do
-  gem 'bundler'
-  gem 'pry'
-  gem 'rake'
-  gem 'rspec'
-end
+# Specify your gem's dependencies in is_a.gemspec
+gemspec
