@@ -7,6 +7,7 @@ module MarkovGrammar
     include Behavior::CanBeSampled
     include Disposition::HasContext
     include Disposition::HasPositivity
+    include Disposition::HasGender
 
     validates_uniqueness_of :base_form
 

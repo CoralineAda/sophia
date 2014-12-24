@@ -3,11 +3,11 @@ module MarkovGrammar
 
     include Mongoid::Document
     include Behavior::CanBeSampled
+    include Disposition::HasPlurality
 
     validates_uniqueness_of :base_form
 
     field :base_form
-    field :plurality
     field :is_indefinite, type: Boolean, default: false
 
     def self.base_forms
@@ -20,10 +20,6 @@ module MarkovGrammar
 
     def self.definite
       where(is_indefinite: false)
-    end
-
-    def self.matching_plurality(word)
-      any_in( plurality: [nil, word.plurality] )
     end
 
     def self.join_with_matching(article_in_form, noun_in_form)

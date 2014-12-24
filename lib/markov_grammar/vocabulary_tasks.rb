@@ -5,6 +5,7 @@ module MarkovGrammar
 
     def vocabulary_tasks
 
+      return unless defined? Rake::DSL
       namespace :markov_grammar do
 
         namespace :vocabulary do
