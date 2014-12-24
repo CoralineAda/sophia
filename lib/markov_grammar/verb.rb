@@ -24,11 +24,14 @@ module MarkovGrammar
     field :ed_form
     field :ing_form
 
+    index({ base_form: 1 }, { unique: true })
+
     TENSES = [:present, :past, :present_participle]
 
     attr_accessor :person
     attr_accessor :plurality
     attr_accessor :form
+    attr_accessor :tense
 
     def self.base_forms
       all.map(&:base_form)
@@ -76,7 +79,10 @@ module MarkovGrammar
     end
 
     def inject_adverb(adverb)
-      verb_phrase = self.send(form).split
+      verb_phrase = self.send(tense) if tense
+      verb_phrase ||= self.send(form) if form
+      verb_phrase ||= self.present
+      verb_phrase = verb_phrase.split
       return "#{adverb} #{verb_phrase[0]}" if verb_phrase.size == 1
       "#{verb_phrase[-2..0].join(' ')} #{adverb} #{verb_phrase[-1]}"
     end

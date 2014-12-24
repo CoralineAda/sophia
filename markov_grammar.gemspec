@@ -27,7 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'require_all'
   spec.add_dependency 'ruby-stemmer', '>=0.8.3'
   spec.add_dependency 'rubyfish'
-  spec.add_dependency 'text'
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"

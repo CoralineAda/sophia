@@ -10,6 +10,8 @@ module MarkovGrammar
 
     field :base_form
 
+    index({ base_form: 1 }, { unique: true })
+
     def self.base_forms
       all.map(&:base_form)
     end

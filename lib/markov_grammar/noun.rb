@@ -18,7 +18,10 @@ module MarkovGrammar
     field :is_countable,  type: Boolean, default: true
     field :is_collective, type: Boolean, default: false
     field :is_physical,   type: Boolean, default: false
+    field :plural_form
     field :synonyms,      type: Array,   default: []
+
+    index({ base_form: 1 }, { unique: true })
 
     attr_accessor :enable_synonyms
 
@@ -26,13 +29,17 @@ module MarkovGrammar
       all.map(&:base_form)
     end
 
-   def self.from(candidate)
-      where(stem: Lingua.stemmer(candidate)).first || construct(candidate)
+    def self.common
+      where(is_proper: false)
+    end
+
+    def self.proper
+      where(is_proper: true)
     end
 
     def self.construct(candidate)
       noun = new(base_form: candidate)
-      noun.is_proper = (noun.base_form =~ /^[A-Z]/) > -1
+      noun.is_proper = noun.base_form.capitalize == noun.base_form
       noun
     end
 
@@ -40,8 +47,8 @@ module MarkovGrammar
       new(base_form: ['thing', 'something'].sample)
     end
 
-    def self.common
-      where(is_proper: false)
+    def self.from(candidate)
+      where(stem: Lingua.stemmer(candidate)).first || construct(candidate)
     end
 
     def base_form_or_synonym
@@ -60,17 +67,17 @@ module MarkovGrammar
 
     def plural
       return self.base_form_or_synonym unless self.is_countable
-      self.base_form_or_synonym.pluralize
+      self.plural_form || self.base_form_or_synonym.pluralize
     end
 
     def possessive_singular
       form = "#{self.base_form_or_synonym}'s"
-      form.gsub!(/s's/, "'")
+      form.gsub(/s's/, "s'")
     end
 
     def possessive_plural
       form = "#{plural}'s"
-      form.gsub!(/s's/, "'")
+      form.gsub(/s's/, "s'")
     end
 
   end

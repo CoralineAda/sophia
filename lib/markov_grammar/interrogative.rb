@@ -13,6 +13,8 @@ module MarkovGrammar
     field :is_proadverb,  type: Boolean, default: false
     field :type
 
+    index({ base_form: 1 }, { unique: true })
+
     validates_uniqueness_of :base_form
     validates_inclusion_of :type, in: TYPES
 

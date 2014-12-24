@@ -20,6 +20,8 @@ module MarkovGrammar
     field :is_verbal,       type: Boolean, default: true
     field :is_adjectival,   type: Boolean, default: false
 
+    index({ base_form: 1 }, { unique: true })
+
     def self.base_forms
       all.map(&:base_form)
     end
