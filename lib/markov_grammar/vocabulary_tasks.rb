@@ -25,15 +25,15 @@ module MarkovGrammar
 
           desc "Build default vocabulary"
           task :seeds do
-            load 'db/seeds/adjectives.rb'
-            load 'db/seeds/adverbs.rb'
-            load 'db/seeds/articles.rb'
-            load 'db/seeds/conjunctions.rb'
-            load 'db/seeds/interrogatives.rb'
-            load 'db/seeds/nouns.rb'
-            load 'db/seeds/prepositions.rb'
-            load 'db/seeds/pronouns.rb'
-            load 'db/seeds/verbs.rb'
+            load 'markov_grammar/data/seeds/adjectives.rb'
+            load 'markov_grammar/data/seeds/adverbs.rb'
+            load 'markov_grammar/data/seeds/articles.rb'
+            load 'markov_grammar/data/seeds/conjunctions.rb'
+            load 'markov_grammar/data/seeds/interrogatives.rb'
+            load 'markov_grammar/data/seeds/nouns.rb'
+            load 'markov_grammar/data/seeds/prepositions.rb'
+            load 'markov_grammar/data/seeds/pronouns.rb'
+            load 'markov_grammar/data/seeds/verbs.rb'
           end
 
         end

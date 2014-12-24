@@ -20,6 +20,10 @@ module MarkovGrammar
     field :is_verbal,       type: Boolean, default: true
     field :is_adjectival,   type: Boolean, default: false
 
+    def self.base_forms
+      all.map(&:base_form)
+    end
+
     def self.verbal
       where(is_verbal: true)
     end

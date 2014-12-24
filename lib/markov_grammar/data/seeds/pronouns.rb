@@ -1,5 +1,3 @@
-require './markov_grammar'
-
 MarkovGrammar::Pronoun.create(
   base_form: "I",
   plurality: :singular,

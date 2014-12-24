@@ -17,13 +17,9 @@ module MarkovGrammar
      }
 
       HONORIFICS = %w{dr. mr. ms. mrs. rev.}
-
       NOUN_INDICATORS = WORD_LIST[:article]
-
       VERB_INDICATORS = WORD_LIST[:interrogative]
-
       IDENTIFIERS = WORD_LIST[:article] + WORD_LIST[:number]
-
       PREDICATE_INDICATORS = WORD_LIST[:preposition] + NOUN_INDICATORS
 
       def self.similar_to(original_word, test_word)
@@ -33,22 +29,21 @@ module MarkovGrammar
       end
 
       def self.probable_verbs_from(text)
-        text = text.to_s
-        re = Regexp.union((VERB_INDICATORS).flatten.map{|w| /\b#{Regexp.escape(w)}\b/i})
-        candidates = text.split(re).map(&:split).flatten.map(&:downcase)
-        candidates.reject!{|c| VERB_INDICATORS.include?(c) }
-        candidates = candidates.map{|c| c.gsub(/[^a-zA-Z]/x, " ")}.compact
-        candidates = candidates.map(&:split).flatten.compact
-        candidate = candidates.first
+        forms = MarkovGrammar::Verb.all_forms
+        text.split.select{|word| forms.include? word}
+      end
+
+      def self.non_nouns
+        WORD_LIST.invert.keys.flatten.reject!{ |w| WORD_LIST[:pronoun].include? w }
       end
 
       def self.probable_nouns_from(text)
         text = text.to_s
         re = Regexp.union((PREDICATE_INDICATORS).flatten.map{|w| /\b#{Regexp.escape(w)}\b/i})
         candidates = text.split(re).map(&:split).flatten.map(&:downcase)
-        candidates.reject!{|c| PREDICATE_INDICATORS.include?(c) }
-        candidates.reject!{|c| VERB_INDICATORS.include?(c) }
-        candidates = candidates.map{|c| c.gsub(/[^a-zA-Z]/x, " ")}.compact
+        candidates = candidates.reject{ |c| non_nouns.include?(c) }
+        candidates = candidates.reject{ |c| MarkovGrammar::Verb.all_forms.include?(c) }
+        candidates = candidates.map{ |c| c.gsub(/[^a-zA-Z]/x, " ") }.compact
         candidates = candidates.map(&:split).flatten.compact
       end
 

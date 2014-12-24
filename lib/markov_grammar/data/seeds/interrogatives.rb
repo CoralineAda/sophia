@@ -1,5 +1,3 @@
-require './markov_grammar'
-
 MarkovGrammar::Interrogative.create(
   base_form: "whose",
   type: "personal",

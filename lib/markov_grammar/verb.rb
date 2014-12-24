@@ -30,6 +30,14 @@ module MarkovGrammar
     attr_accessor :plurality
     attr_accessor :form
 
+    def self.base_forms
+      all.map(&:base_form)
+    end
+
+    def self.all_forms
+      all.map(&:all_forms).flatten.uniq
+    end
+
     def self.stems
       all.map(&:stem)
     end
@@ -52,6 +60,15 @@ module MarkovGrammar
 
     def self.identifying
       where(is_identifying: true)
+    end
+
+    def all_forms
+      [
+        self.base_form,
+        self.in_s_form,
+        self.in_ed_form,
+        self.in_ing_form
+      ]
     end
 
     def with_form(form)

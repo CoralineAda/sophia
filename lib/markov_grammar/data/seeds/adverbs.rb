@@ -1,5 +1,3 @@
-require './markov_grammar'
-
 MarkovGrammar::Adverb.create(
   base_form: "quickly",
   is_manner: true,
@@ -262,5 +260,11 @@ MarkovGrammar::Adverb.create(
   base_form: "today",
   is_time: true,
   disposition: MarkovGrammar::Disposition::HasPositivity::POSITIVITIES[:neutral],
+)
+
+MarkovGrammar::Adverb.create(
+  base_form: "please",
+  is_manner: true,
+  disposition: MarkovGrammar::Disposition::HasPositivity::POSITIVITIES[:positive],
 )
 

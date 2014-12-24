@@ -16,5 +16,9 @@ module MarkovGrammar
     validates_uniqueness_of :base_form
     validates_inclusion_of :type, in: TYPES
 
+    def self.base_forms
+      all.map(&:base_form)
+    end
+
   end
 end

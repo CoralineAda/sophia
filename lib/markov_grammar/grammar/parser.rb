@@ -23,7 +23,9 @@ module MarkovGrammar
       end
 
       def interrogative
-        Interrogative.any_in(base_form: bare_words.first)
+        if match = Interrogative.any_in(base_form: bare_words).first
+          match.base_form
+        end
       end
 
       def is_interrogative?

@@ -13,6 +13,10 @@ module MarkovGrammar
     field :base_form
     field :is_physical, type: Boolean, default: false
 
+    def self.base_forms
+      all.map(&:base_form)
+    end
+
     def self.pair_with_noun(word, word_form, characteristics=[])
       agreeing_with(word, characteristics).sample.in_form_with_noun(word_form)
     end

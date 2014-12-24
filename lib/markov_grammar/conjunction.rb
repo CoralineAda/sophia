@@ -10,5 +10,9 @@ module MarkovGrammar
 
     field :base_form
 
+    def self.base_forms
+      all.map(&:base_form)
+    end
+
   end
 end

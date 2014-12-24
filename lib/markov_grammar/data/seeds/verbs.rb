@@ -1,5 +1,3 @@
-require './markov_grammar'
-
 MarkovGrammar::Verb.create(
   base_form: "begin",
   contexts: ["action", "process"],
@@ -14,6 +12,14 @@ MarkovGrammar::Verb.create(
   is_finite: true,
   ed_form: "sat",
   ing_form: "sitting"
+)
+
+MarkovGrammar::Verb.create(
+  base_form: "do",
+  contexts: ["action"],
+  is_finite: true,
+  ed_form: "did",
+  s_form: "does"
 )
 
 MarkovGrammar::Verb.create(
@@ -49,8 +55,20 @@ MarkovGrammar::Verb.create(
   is_indicative: true,
   is_identifying: true,
   is_linking: true,
+  s_form: "are",
   ed_form: "was",
   ing_form: "being"
+)
+
+MarkovGrammar::Verb.create(
+  base_form: "give",
+  contexts: ["transfer"],
+  is_finite: true,
+  is_transitive: true,
+  is_indicative: true,
+  is_linking: true,
+  ed_form: "gave",
+  ing_form: "giving"
 )
 
 MarkovGrammar::Verb.create(
@@ -151,3 +169,11 @@ MarkovGrammar::Verb.create(
   base_form: "play",
   contexts: ["entertainment"]
 )
+
+MarkovGrammar::Verb.create(
+  base_form: "run",
+  contexts: ["action"],
+  ed_form: "ran",
+  ing_form: "running"
+)
+

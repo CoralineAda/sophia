@@ -22,7 +22,11 @@ module MarkovGrammar
 
     attr_accessor :enable_synonyms
 
-    def self.from(candidate)
+    def self.base_forms
+      all.map(&:base_form)
+    end
+
+   def self.from(candidate)
       where(stem: Lingua.stemmer(candidate)).first || construct(candidate)
     end
 

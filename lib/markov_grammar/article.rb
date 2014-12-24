@@ -10,6 +10,10 @@ module MarkovGrammar
     field :plurality
     field :is_indefinite, type: Boolean, default: false
 
+    def self.base_forms
+      all.map(&:base_form)
+    end
+
     def self.indefinite
       where(is_indefinite: true)
     end

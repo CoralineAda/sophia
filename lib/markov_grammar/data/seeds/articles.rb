@@ -1,5 +1,3 @@
-require './markov_grammar'
-
 MarkovGrammar::Article.create(
   base_form: "a",
   plurality: :singular,

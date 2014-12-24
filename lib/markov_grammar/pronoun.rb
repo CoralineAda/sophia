@@ -16,6 +16,10 @@ module MarkovGrammar
     field :is_possessive,  type: Boolean, default: false
     field :is_reflexive,   type: Boolean, default: false
 
+    def self.base_forms
+      all.map(&:base_form)
+    end
+
     def self.personal
       where(is_subjective: true)
     end

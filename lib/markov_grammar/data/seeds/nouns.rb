@@ -1,5 +1,3 @@
-require './markov_grammar'
-
 MarkovGrammar::Noun.create(
   base_form: "Alice",
   plurality: :singular,
