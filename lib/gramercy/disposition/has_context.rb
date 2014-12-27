@@ -3,7 +3,7 @@ module Gramercy
     module HasContext
 
       def self.included(klass)
-        klass.send(:field, :contexts, type: Array, default: [])
+        klass.send(:field, :context_names, type: Array, default: [])
         klass.extend(ClassMethods)
       end
 

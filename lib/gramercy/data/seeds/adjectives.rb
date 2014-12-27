@@ -1,91 +1,112 @@
 Gramercy::PartOfSpeech::Adjective.create(
+  base_form: "my",
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:neutral],
+  is_physical: false,
+  context_names: ["possession"]
+)
+
+Gramercy::PartOfSpeech::Adjective.create(
+  base_form: "your",
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:neutral],
+  is_physical: false,
+  context_names: ["possession"]
+)
+
+Gramercy::PartOfSpeech::Adjective.create(
+  base_form: "our",
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:neutral],
+  is_physical: false,
+  context_names: ["possession"]
+)
+
+Gramercy::PartOfSpeech::Adjective.create(
   base_form: "hot",
-  disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:negative],
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:negative],
   is_physical: true,
   context_names: ["temperature", "physical trait"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "cold",
-  disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:negative],
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:negative],
   is_physical: true,
   context_names: ["temperature", "physical trait"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "warm",
-  disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:positive],
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:positive],
   is_physical: true,
   context_names: ["temperature", "physical trait"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "cool",
-  disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:positive],
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:positive],
   is_physical: true,
   context_names: ["temperature", "physical trait"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "tepid",
-  disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:negative],
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:negative],
   is_physical: true,
   context_names: ["temperature", "physical trait"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "sleepy",
-  disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:negative],
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:negative],
   context_names: ["attentiveness"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "awake",
-  disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:positive],
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:positive],
   context_names: ["attentiveness"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "stupid",
-  disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:negative],
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:negative],
   context_names: ["knowledge"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "smart",
-  disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:positive],
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:positive],
   context_names: ["knowledge"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "remarkable",
-  disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:positive],
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:positive],
   context_names: ["interest"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "out of the way",
-  disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:neutral],
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:neutral],
   context_names: ["proximity"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "large",
-  disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:neutral],
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:neutral],
   is_physical: true,
   context_names: ["size", "physical trait"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "cursed",
-  disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:negative],
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:negative],
   is_physical: false,
   context_names: ["luck"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "lucky",
-  disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:positive],
+  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:positive],
   is_physical: false,
   context_names: ["luck"]
 )
@@ -96,7 +117,7 @@ colors.each do |color|
   Gramercy::PartOfSpeech::Adjective.create(
     base_form: color,
     is_physical: true,
-    disposition: Gramercy::PartOfSpeech::Disposition::HasPositivity::POSITIVITIES[:neutral],
+    disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:neutral],
     context_names: ["color", "physical trait"]
   )
 end

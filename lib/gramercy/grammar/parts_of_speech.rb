@@ -6,14 +6,14 @@ module Gramercy
     module PartsOfSpeech
 
       WORD_LIST = {
-        article:         Gramercy::Article.all.map(&:base_form),
+        article:         Gramercy::PartOfSpeech::Article.all.map(&:base_form),
         greeting:        %w{ hi hello evening morning hii hiii hiiii guten ohai hai ahoy yo heya},
-        adverb:          Gramercy::Adverb.all.map(&:base_form),
-        conjunction:     Gramercy::Conjunction.all.map(&:base_form),
-        interrogative:   Gramercy::Interrogative.all.map(&:base_form),
+        adverb:          Gramercy::PartOfSpeech::Adverb.all.map(&:base_form),
+        conjunction:     Gramercy::PartOfSpeech::Conjunction.all.map(&:base_form),
+        interrogative:   Gramercy::PartOfSpeech::Interrogative.all.map(&:base_form),
         number:          %w{ one two three four five six seven eight nine ten twenty thirty forty fifty sixty seventy eighty ninety hundred thousand million },
-        preposition:     Gramercy::Preposition.all.map(&:base_form),
-        pronoun:         Gramercy::Pronoun.all.map(&:base_form)
+        preposition:     Gramercy::PartOfSpeech::Preposition.all.map(&:base_form),
+        pronoun:         Gramercy::PartOfSpeech::Pronoun.all.map(&:base_form)
      }
 
       HONORIFICS = %w{dr. mr. ms. mrs. rev.}
@@ -29,8 +29,8 @@ module Gramercy
       end
 
       def self.probable_verbs_from(text)
-        forms = Gramercy::Verb.all_forms
-        text.split.select{|word| forms.include? word}
+        forms = Gramercy::PartOfSpeech::Verb.all_forms
+        text.split.select{|word| p word; forms.include? word}
       end
 
       def self.non_nouns
@@ -42,7 +42,7 @@ module Gramercy
         re = Regexp.union((PREDICATE_INDICATORS).flatten.map{|w| /\b#{Regexp.escape(w)}\b/i})
         candidates = text.split(re).map(&:split).flatten.map(&:downcase)
         candidates = candidates.reject{ |c| non_nouns.include?(c) }
-        candidates = candidates.reject{ |c| Gramercy::Verb.all_forms.include?(c) }
+        candidates = candidates.reject{ |c| Gramercy::PartOfSpeech::Verb.all_forms.include?(c) }
         candidates = candidates.map{ |c| c.gsub(/[^a-zA-Z]/x, " ") }.compact
         candidates = candidates.map(&:split).flatten.compact
       end

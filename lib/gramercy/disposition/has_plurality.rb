@@ -2,7 +2,7 @@ module Gramercy
   module Disposition
     module HasPlurality
 
-      def included(klass)
+      def self.included(klass)
         klass.send(:field, :plurality, default: :singular)
         klass.extend ClassMethods
       end

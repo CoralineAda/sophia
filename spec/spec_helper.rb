@@ -1,14 +1,17 @@
 require 'rubygems'
 require 'rspec'
 require 'database_cleaner'
+require 'rake'
 require 'gramercy'
 
 RSpec.configure do |config|
 
   config.before(:suite) do
-    DatabaseCleaner.orm = "mongoid"
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.clean_with(:truncation)
+    Rake::Task['gramercy:vocabulary:reset'].invoke
+    Rake::Task['gramercy:vocabulary:seeds'].invoke
+    # DatabaseCleaner.orm = "mongoid"
+    # DatabaseCleaner.strategy = :truncation
+    # DatabaseCleaner.clean_with(:truncation)
   end
 
   config.around(:each) do |example|

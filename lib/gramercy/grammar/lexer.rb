@@ -2,10 +2,11 @@ module Gramercy
   module Grammar
     class Lexer
 
-      attr_accessor :corpus, :parsed_corpus
+      attr_accessor :corpus, :parsed_corpus, :sentences
 
       def initialize(corpus="")
-        self.corpus = corpus.split("\n")[0..50].join("\n")
+        self.corpus = corpus
+        self.sentences = corpus.lines
       end
 
       def parser
@@ -18,13 +19,13 @@ module Gramercy
         end
       end
 
-      def dictionary
-        return @dictionary if @dictionary
-        @dictionary ||= ::MarkyMarkov::Dictionary.new('./data/dictionary')
-        @dictionary.parse_file('./data/structures.txt')
-        @dictionary.save_dictionary!
-        @dictionary
-      end
+      # def dictionary
+      #   return @dictionary if @dictionary
+      #   @dictionary ||= ::MarkyMarkov::Dictionary.new('./data/dictionary')
+      #   @dictionary.parse_file('./data/structures.txt')
+      #   @dictionary.save_dictionary!
+      #   @dictionary
+      # end
 
       def replace_nouns
         Grammar::PartsOfSpeech.probable_nouns_from(self.corpus).each do |noun|

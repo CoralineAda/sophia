@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Gramercy::Verb do
+describe Gramercy::PartOfSpeech::Verb do
 
   describe ".inject_adverb" do
 
-    let(:verb)   { Gramercy::Verb.new(base_form: 'run', ing_form: 'running') }
+    let(:verb)   { Gramercy::PartOfSpeech::Verb.new(base_form: 'run', ing_form: 'running') }
 
     it "inserts an adverb before a simple verb" do
       verb.plurality = :singular

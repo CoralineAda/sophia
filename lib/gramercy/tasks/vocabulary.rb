@@ -14,15 +14,15 @@ module Gramercy
             desc "Reset vocabulary"
 
             task :reset do
-              Gramercy::Adjective.delete_all
-              Gramercy::Adverb.delete_all
-              Gramercy::Article.delete_all
-              Gramercy::Conjunction.delete_all
-              Gramercy::Interrogative.delete_all
-              Gramercy::Noun.delete_all
-              Gramercy::Preposition.delete_all
-              Gramercy::Pronoun.delete_all
-              Gramercy::Verb.delete_all
+              Gramercy::PartOfSpeech::Adjective.delete_all
+              Gramercy::PartOfSpeech::Adverb.delete_all
+              Gramercy::PartOfSpeech::Article.delete_all
+              Gramercy::PartOfSpeech::Conjunction.delete_all
+              Gramercy::PartOfSpeech::Interrogative.delete_all
+              Gramercy::PartOfSpeech::Noun.delete_all
+              Gramercy::PartOfSpeech::Preposition.delete_all
+              Gramercy::PartOfSpeech::Pronoun.delete_all
+              Gramercy::PartOfSpeech::Verb.delete_all
             end
 
             desc "Build default vocabulary"

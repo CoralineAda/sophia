@@ -10,10 +10,10 @@ module Gramercy
 
       validates :name, :presence => true, :uniqueness => true
 
-      has_many :both, :words, rel_class: Expression
+      has_many :both, :roots, rel_class: Meta::Expression
 
-      def add_expression(word, positivity)
-        Expression.create(from_node: self, to_node: word, positivity: positivity)
+      def add_expression(root, positivity=0)
+        Expression.create(from_node: self, to_node: root, positivity: positivity)
       end
 
       def words_with_positivity(positivity)

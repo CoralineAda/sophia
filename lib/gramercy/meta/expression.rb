@@ -5,7 +5,7 @@ module Gramercy
       include Neo4j::ActiveRel
 
       from_class Context
-      to_class Word
+      to_class Root
       type "EXPRESSED_AS"
 
       property :positivity, type: Integer

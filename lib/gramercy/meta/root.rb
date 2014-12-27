@@ -9,8 +9,7 @@ module Gramercy
 
       validates :base_form, :presence => true, :uniqueness => true
 
-      has_many :both, :contexts,    rel_class: Expression
-
+      has_many :both, :contexts, rel_class: Meta::Expression
 
       def positivity_in_context(context)
         query_as(:w).match('s-[EXPRESSED_AS]->n1').where("n1.base_form='#{self.base_form}'").pluck('EXPRESSED_AS.positivity').first

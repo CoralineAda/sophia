@@ -200,7 +200,7 @@ Gramercy::PartOfSpeech::Verb.create(
 Gramercy::PartOfSpeech::Verb.create(
   base_form: "lend",
   is_transitive: true,
-  context: ["financial"]
+  context_names: ["financial"]
 )
 
 Gramercy::PartOfSpeech::Verb.create(
@@ -290,7 +290,7 @@ Gramercy::PartOfSpeech::Verb.create(
 Gramercy::PartOfSpeech::Verb.create(
   base_form: "promise",
   is_transitive: true,
-  context: ["truth"]
+  context_names: ["truth"]
 )
 
 Gramercy::PartOfSpeech::Verb.create(
@@ -314,7 +314,3 @@ Gramercy::PartOfSpeech::Verb.create(
   is_transitive: true,
   context_names: ["information"]
 )
-
-
-
-

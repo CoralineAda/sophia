@@ -1,7 +1,7 @@
 require "bundler/gem_tasks"
 
 require 'gramercy'
-require 'gramercy/vocabulary_tasks'
+require 'gramercy/tasks/vocabulary'
 require 'neo4j'
 
 load 'neo4j/tasks/neo4j_server.rake'

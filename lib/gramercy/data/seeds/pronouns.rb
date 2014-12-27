@@ -15,7 +15,7 @@ Gramercy::PartOfSpeech::Pronoun.create(
 Gramercy::PartOfSpeech::Pronoun.create(
   base_form: "he",
   plurality: :singular,
-  gender: Gramercy::PartOfSpeech::Disposition::HasGender::MASCULINE,
+  gender: Gramercy::Disposition::HasGender::MASCULINE,
   person: :third,
   is_subjective: true
 )
@@ -24,14 +24,14 @@ Gramercy::PartOfSpeech::Pronoun.create(
   base_form: "she",
   plurality: :singular,
   person: :third,
-  gender: Gramercy::PartOfSpeech::Disposition::HasGender::FEMININE,
+  gender: Gramercy::Disposition::HasGender::FEMININE,
   is_subjective: true
 )
 
 Gramercy::PartOfSpeech::Pronoun.create(
   base_form: "it",
   plurality: :singular,
-  gender: Gramercy::PartOfSpeech::Disposition::HasGender::NONE,
+  gender: Gramercy::Disposition::HasGender::NONE,
   person: :third,
   is_subjective: true
 )
@@ -39,7 +39,7 @@ Gramercy::PartOfSpeech::Pronoun.create(
 Gramercy::PartOfSpeech::Pronoun.create(
   base_form: "they",
   plurality: :singular,
-  gender: Gramercy::PartOfSpeech::Disposition::HasGender::NEUTRAL,
+  gender: Gramercy::Disposition::HasGender::NEUTRAL,
   person: :third,
   is_subjective: true
 )
@@ -82,7 +82,7 @@ Gramercy::PartOfSpeech::Pronoun.create(
 Gramercy::PartOfSpeech::Pronoun.create(
   base_form: "him",
   plurality: :singular,
-  gender: Gramercy::PartOfSpeech::Disposition::HasGender::MASCULINE,
+  gender: Gramercy::Disposition::HasGender::MASCULINE,
   person: :third,
   is_objective: true
 )
@@ -90,7 +90,7 @@ Gramercy::PartOfSpeech::Pronoun.create(
 Gramercy::PartOfSpeech::Pronoun.create(
   base_form: "her",
   plurality: :singular,
-  gender: Gramercy::PartOfSpeech::Disposition::HasGender::FEMININE,
+  gender: Gramercy::Disposition::HasGender::FEMININE,
   person: :third,
   is_objective: true
 )
@@ -98,7 +98,7 @@ Gramercy::PartOfSpeech::Pronoun.create(
 Gramercy::PartOfSpeech::Pronoun.create(
   base_form: "them",
   plurality: :singular,
-  gender: Gramercy::PartOfSpeech::Disposition::HasGender::NEUTRAL,
+  gender: Gramercy::Disposition::HasGender::NEUTRAL,
   person: :third,
   is_objective: true
 )
@@ -106,7 +106,7 @@ Gramercy::PartOfSpeech::Pronoun.create(
 Gramercy::PartOfSpeech::Pronoun.create(
   base_form: "it",
   plurality: :singular,
-  gender: Gramercy::PartOfSpeech::Disposition::HasGender::NONE,
+  gender: Gramercy::Disposition::HasGender::NONE,
   person: :third,
   is_objective: true
 )
@@ -151,7 +151,7 @@ Gramercy::PartOfSpeech::Pronoun.create(
   base_form: "his",
   plurality: :singular,
   person: :third,
-  gender: Gramercy::PartOfSpeech::Disposition::HasGender::MASCULINE,
+  gender: Gramercy::Disposition::HasGender::MASCULINE,
   is_possessive: true
 )
 
@@ -159,7 +159,7 @@ Gramercy::PartOfSpeech::Pronoun.create(
   base_form: "hers",
   plurality: :singular,
   person: :third,
-  gender: Gramercy::PartOfSpeech::Disposition::HasGender::FEMININE,
+  gender: Gramercy::Disposition::HasGender::FEMININE,
   is_possessive: true
 )
 
@@ -167,7 +167,7 @@ Gramercy::PartOfSpeech::Pronoun.create(
   base_form: "theirs",
   plurality: :singular,
   person: :third,
-  gender: Gramercy::PartOfSpeech::Disposition::HasGender::NEUTRAL,
+  gender: Gramercy::Disposition::HasGender::NEUTRAL,
   is_possessive: true
 )
 
