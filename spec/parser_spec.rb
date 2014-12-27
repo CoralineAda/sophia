@@ -20,10 +20,10 @@ describe Gramercy::Grammar::Parser do
     end
 
     it "finds an object" do
-      expect(parser.object).to eq("a dog")
+      expect(parser.predicate).to eq("a dog")
     end
 
-    xit "finds nouns" do
+    it "finds nouns" do
       expect(parser.nouns).to match_array(["dog", "animal"])
     end
 
