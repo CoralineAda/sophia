@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'rspec'
 require 'database_cleaner'
-require 'markov_grammar'
+require 'gramercy'
 
 RSpec.configure do |config|
 

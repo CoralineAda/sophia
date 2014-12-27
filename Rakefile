@@ -1,7 +1,11 @@
 require "bundler/gem_tasks"
 
-require 'markov_grammar'
-require 'markov_grammar/vocabulary_tasks'
+require 'gramercy'
+require 'gramercy/vocabulary_tasks'
+require 'neo4j'
+
+load 'neo4j/tasks/neo4j_server.rake'
+load 'neo4j/tasks/migration.rake'
 
 begin
   Bundler.setup(:default, :development)

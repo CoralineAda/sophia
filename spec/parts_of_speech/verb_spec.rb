@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe MarkovGrammar::Verb do
+describe Gramercy::Verb do
 
   describe ".inject_adverb" do
 
-    let(:verb)   { MarkovGrammar::Verb.new(base_form: 'run', ing_form: 'running') }
+    let(:verb)   { Gramercy::Verb.new(base_form: 'run', ing_form: 'running') }
 
     it "inserts an adverb before a simple verb" do
       verb.plurality = :singular
