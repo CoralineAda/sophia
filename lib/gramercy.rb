@@ -12,7 +12,7 @@ require 'active_support/notifications'
 Dotenv.load
 Bundler.require
 Mongoid.load!("config/mongoid.yml")
-Neo4j::Session.open(:server_db, "http://localhost:7474")#, basic_auth: { username: uri.user, password: uri.password})
+Neo4j::Session.open(:server_db, ENV['NEO4J_URL'])#, basic_auth: { username: uri.user, password: uri.password})
 
 require_rel 'gramercy'
 

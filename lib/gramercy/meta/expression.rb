@@ -4,8 +4,8 @@ module Gramercy
 
       include Neo4j::ActiveRel
 
-      from_class Context
-      to_class Root
+      from_class Meta::Context
+      to_class Meta::Root
       type "EXPRESSED_AS"
 
       property :positivity, type: Integer

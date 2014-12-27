@@ -8,12 +8,30 @@ module Gramercy
         @text = text.downcase
       end
 
+      def context
+        Meta::Context.from(nouns)
+      end
+
+      def interrogative
+        (split_text & Grammar::PartsOfSpeech::WORD_LIST[:interrogative]).first
+      end
+
+      def is_question?
+        self.text =~ /\?$/
+      end
+
       def nouns
-        [subject.split.last] + [predicate.split.last]
+        ([subject.to_s.split.last] + [predicate.to_s.split.last]).compact
       end
 
       def parser
-        @parser ||= SimpleDeclarative.new(self.split_text, position_of(verb))
+        @parser ||= begin
+          if is_question?
+            SimpleQuestion.new(split_text, position_of(verb))
+          else
+            SimpleDeclarative.new(split_text, position_of(verb))
+          end
+        end
       end
 
       def position_of(word)
@@ -62,6 +80,23 @@ module Gramercy
 
       end
 
+      class SimpleQuestion
+
+        attr_reader :split_text, :verb_position
+
+        def initialize(split_text, verb_position)
+          @split_text = split_text
+          @verb_position = verb_position
+        end
+
+        def subject
+        end
+
+        def predicate
+          (split_text[(verb_position + 1)..-1]).join(" ")
+        end
+
+      end
     end
   end
 end
