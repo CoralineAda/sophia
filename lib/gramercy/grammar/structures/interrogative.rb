@@ -3,7 +3,7 @@ module Gramercy
     module Structures
 
       # What is your favorite song?
-      class SimpleInterrogative
+      class SimpleQuestionWithInterrogative
 
         include SentenceInitializer
 
@@ -41,7 +41,7 @@ module Gramercy
         include SentenceInitializer
 
         def conforms?
-          self.verb_position = 0
+          self.verb_position == 0
         end
 
         def subject
@@ -63,7 +63,6 @@ module Gramercy
         end
 
       end
-
 
     end
   end

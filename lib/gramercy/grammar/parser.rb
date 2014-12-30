@@ -6,7 +6,8 @@ module Gramercy
 
       STRUCTURES = {
         question: [
-          Structures::SimpleInterrogative
+          Structures::SimpleQuestionWithInterrogative,
+          Structures::SimpleQuestion
         ],
         statement: [
           Structures::SimpleDeclarative
@@ -34,13 +35,13 @@ module Gramercy
         ([subject.to_s.split.last] + [predicate.to_s.split.last]).compact
       end
 
+      # FIXME Implement this a better way than initializing the parser class 2x!
       def parser
         @parser ||= begin
-          STRUCTURES[sentence_type].map do |structure|
+          STRUCTURES[sentence_type].detect do |structure|
             candidate = structure.new(split_text, position_of(verb))
-            next unless candidate.conforms?
-            candidate
-          end.compact.first
+            candidate.conforms? && candidate
+          end.new(split_text, position_of(verb))
         end
       end
 
