@@ -14,7 +14,7 @@ module Gramercy
       has_many :both, :roots, model_class: Meta::Root, rel_class: Meta::Expression
 
       def self.from(words)
-        query_as(:c).match('s-[EXPRESSED_AS]->n1').where("n1.base_form in#{words}").pluck(:c).first
+        query_as(:w).match(n:Gramercy::Meta::Context).optional_match('(n)-[EXPRESSED_AS]->(r)').where("r.base_form in #{words}").return('n, count(r) as c').order_by('c desc').take(1).first.n
       end
 
       def add_expression(root, positivity=0)

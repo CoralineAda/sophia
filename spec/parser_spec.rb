@@ -66,15 +66,25 @@ describe Gramercy::Grammar::Parser do
     let(:parser)  { Gramercy::Grammar::Parser.new(corpus) }
 
     before do
+
       Gramercy::Meta::Context.all.map(&:destroy)
       Gramercy::Meta::Root.all.map(&:destroy)
       Gramercy::PartOfSpeech::Verb.create(base_form: "is")
-      @context = Gramercy::Meta::Context.create!(name: "animal")
-      @context.add_expression(Gramercy::Meta::Root.create!(base_form: "dog"), 0)
+
+      dog = Gramercy::Meta::Root.create!(base_form: "dog")
+      animal = Gramercy::Meta::Root.create!(base_form: "animal")
+
+      @context_1 = Gramercy::Meta::Context.create!(name: "animal")
+      @context_1.add_expression(dog, 0)
+      @context_1.add_expression(animal, 0)
+
+      @context_2 = Gramercy::Meta::Context.create!(name: "beauty")
+      @context_2.add_expression(dog, -5)
+
     end
 
     it "extracts a context from a declarative sentence" do
-      expect(parser.context).to eq(@context)
+      expect(parser.context).to eq(@context_1)
     end
 
   end
