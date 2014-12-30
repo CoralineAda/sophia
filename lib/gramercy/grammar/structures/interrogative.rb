@@ -53,7 +53,8 @@ module Gramercy
         end
 
         def noun_phrases
-          @noun_phrases ||= split_text.join(' ').split(all_articles)[1..-1]
+          re = Regexp.union((all_articles).flatten.map{|w| /\b#{Regexp.escape(w)} /i})
+          @noun_phrases ||= split_text[verb_position + 1..-1].reject{|w| all_articles.include? w}
         end
 
         private

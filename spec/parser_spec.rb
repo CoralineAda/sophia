@@ -50,7 +50,7 @@ describe Gramercy::Grammar::Parser do
       expect(parser.subject).to be_nil
     end
 
-    it "finds an object" do
+    it "finds a predicate" do
       expect(parser.predicate).to eq("your dog")
     end
 
@@ -60,12 +60,35 @@ describe Gramercy::Grammar::Parser do
 
   end
 
+  context "simple question" do
+
+    let(:parser) { Gramercy::Grammar::Parser.new("Is the movie scary?") }
+
+    before do
+      Gramercy::PartOfSpeech::Verb.create(base_form: "is")
+      Gramercy::PartOfSpeech::Article.create(base_form: "the")
+    end
+
+    it "finds a verb" do
+      expect(parser.verb).to eq("is")
+    end
+
+    it "finds a subject" do
+      expect(parser.subject).to eq("movie")
+    end
+
+    it "finds a predicate" do
+      expect(parser.predicate).to eq("scary")
+    end
+
+  end
+
   describe "context" do
 
     before do
 
-      Gramercy::PartOfSpeech::Verb.create!(base_form: "is")
-      Gramercy::PartOfSpeech::Interrogative.create!(base_form: "why", type: "reason")
+      Gramercy::PartOfSpeech::Verb.create(base_form: "is")
+      Gramercy::PartOfSpeech::Interrogative.create(base_form: "why", type: "reason")
 
       Gramercy::Meta::Context.all.map(&:destroy)
       Gramercy::Meta::Root.all.map(&:destroy)

@@ -7,6 +7,7 @@ module Gramercy
 
         include SentenceInitializer
 
+        # FIXME distinguish between different types of declarative sentences.
         def conforms?
           true
         end
