@@ -5,7 +5,7 @@ describe Gramercy::PartOfSpeech::Adjective do
   describe "::pair_with_noun" do
 
     before do
-      @variety = Gramercy::Disposition.new(
+      @variety = Gramercy::PartOfSpeech::Noun.new(
         base_form: 'variety',
         is_physical: false
       )
