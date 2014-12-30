@@ -1,5 +1,5 @@
 module Gramercy
-  module Structures
+  module Constructors
     class Verb
 
       attr_reader :verb, :adverb

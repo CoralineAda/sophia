@@ -1,5 +1,5 @@
 module Gramercy
-  module Structures
+  module Constructors
     class Subject
 
       include PoroPlus

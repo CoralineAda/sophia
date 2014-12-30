@@ -68,14 +68,14 @@ describe Gramercy::Grammar::Parser do
       Gramercy::Meta::Root.all.map(&:destroy)
       Gramercy::PartOfSpeech::Verb.create(base_form: "is")
 
-      light = Gramercy::Meta::Root.create!(base_form: "light")
-      heavy = Gramercy::Meta::Root.create!(base_form: "heavy")
-      food = Gramercy::Meta::Root.create!(base_form: "food")
-      weight = Gramercy::Meta::Root.create!(base_form: "weight")
+      light   = Gramercy::Meta::Root.create!(base_form: "light")
+      heavy   = Gramercy::Meta::Root.create!(base_form: "heavy")
+      food    = Gramercy::Meta::Root.create!(base_form: "food")
+      weight  = Gramercy::Meta::Root.create!(base_form: "weight")
 
       @context_1 = Gramercy::Meta::Context.create!(name: "food")
       @context_1.add_expression(light, 5)
-      @context_1.add_expression(food,  -5)
+      @context_1.add_expression(food)
 
       @context_2 = Gramercy::Meta::Context.create!(name: "weight")
       @context_2.add_expression(light, -5)

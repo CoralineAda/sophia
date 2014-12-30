@@ -1,5 +1,5 @@
 module Gramercy
-  module Structures
+  module Constructors
     class Sentence
 
       attr_reader :subject, :disposition, :context, :tense, :sentence_type
@@ -10,7 +10,7 @@ module Gramercy
           [:subject_phrase_in_form, :verb_phrase_in_form, :predicate_structure_for_identity]
         ],
         interrogative: [
-          [:interrogative, :subject_phrase_in_form, :verb_phrase, :predicate_structure_for_identity]
+          [:interrogative, :verb_phrase, :predicate_structure_for_identity]
         ]
       }
 

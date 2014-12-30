@@ -27,9 +27,9 @@ module Gramercy
       def parser
         @parser ||= begin
           if is_question?
-            SimpleQuestion.new(split_text, position_of(verb))
+            Structures::SimpleQuestion.new(split_text, position_of(verb))
           else
-            SimpleDeclarative.new(split_text, position_of(verb))
+            Structures::SimpleDeclarative.new(split_text, position_of(verb))
           end
         end
       end
@@ -61,42 +61,6 @@ module Gramercy
         @verb_forms ||= PartOfSpeech::Verb.all_forms
       end
 
-      class SimpleDeclarative
-
-        attr_reader :split_text, :verb_position
-
-        def initialize(split_text, verb_position)
-          @split_text = split_text
-          @verb_position = verb_position
-        end
-
-        def subject
-          (split_text[0..(verb_position - 1)]).join(" ")
-        end
-
-        def predicate
-          (split_text[(verb_position + 1)..-1]).join(" ")
-        end
-
-      end
-
-      class SimpleQuestion
-
-        attr_reader :split_text, :verb_position
-
-        def initialize(split_text, verb_position)
-          @split_text = split_text
-          @verb_position = verb_position
-        end
-
-        def subject
-        end
-
-        def predicate
-          (split_text[(verb_position + 1)..-1]).join(" ")
-        end
-
-      end
     end
   end
 end
