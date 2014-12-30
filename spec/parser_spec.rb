@@ -62,29 +62,38 @@ describe Gramercy::Grammar::Parser do
 
   describe "context" do
 
-    let(:corpus)  { "My favorite animal is a dog."}
-    let(:parser)  { Gramercy::Grammar::Parser.new(corpus) }
-
     before do
 
       Gramercy::Meta::Context.all.map(&:destroy)
       Gramercy::Meta::Root.all.map(&:destroy)
       Gramercy::PartOfSpeech::Verb.create(base_form: "is")
 
-      dog = Gramercy::Meta::Root.create!(base_form: "dog")
-      animal = Gramercy::Meta::Root.create!(base_form: "animal")
+      light = Gramercy::Meta::Root.create!(base_form: "light")
+      heavy = Gramercy::Meta::Root.create!(base_form: "heavy")
+      food = Gramercy::Meta::Root.create!(base_form: "food")
+      weight = Gramercy::Meta::Root.create!(base_form: "weight")
 
-      @context_1 = Gramercy::Meta::Context.create!(name: "animal")
-      @context_1.add_expression(dog, 0)
-      @context_1.add_expression(animal, 0)
+      @context_1 = Gramercy::Meta::Context.create!(name: "food")
+      @context_1.add_expression(light, 5)
+      @context_1.add_expression(food,  -5)
 
-      @context_2 = Gramercy::Meta::Context.create!(name: "beauty")
-      @context_2.add_expression(dog, -5)
+      @context_2 = Gramercy::Meta::Context.create!(name: "weight")
+      @context_2.add_expression(light, -5)
+      @context_2.add_expression(heavy, 5)
+      @context_2.add_expression(weight)
 
     end
 
     it "extracts a context from a declarative sentence" do
+      corpus = "This food is light."
+      parser = Gramercy::Grammar::Parser.new(corpus)
       expect(parser.context).to eq(@context_1)
+    end
+
+    it "extracts a context from an interrogative sentence" do
+      corpus = "Why is this so heavy?"
+      parser = Gramercy::Grammar::Parser.new(corpus)
+      expect(parser.context).to eq(@context_2)
     end
 
   end
