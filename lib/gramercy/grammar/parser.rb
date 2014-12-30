@@ -4,6 +4,15 @@ module Gramercy
 
       attr_reader :text
 
+      STRUCTURES = {
+        question: [
+          Structures::SimpleInterrogative
+        ],
+        statement: [
+          Structures::SimpleDeclarative
+        ]
+      }
+
       def initialize(text="")
         @text = text.downcase
       end
@@ -13,11 +22,12 @@ module Gramercy
       end
 
       def interrogative
-        (split_text & Grammar::PartsOfSpeech::WORD_LIST[:interrogative]).first
+        parser.interrogative
       end
 
-      def is_question?
-        self.text =~ /\?$/
+      def sentence_type
+        return :question if self.text =~ /\?$/
+        :statement
       end
 
       def nouns
@@ -26,11 +36,11 @@ module Gramercy
 
       def parser
         @parser ||= begin
-          if is_question?
-            Structures::SimpleQuestion.new(split_text, position_of(verb))
-          else
-            Structures::SimpleDeclarative.new(split_text, position_of(verb))
-          end
+          STRUCTURES[sentence_type].map do |structure|
+            candidate = structure.new(split_text, position_of(verb))
+            next unless candidate.conforms?
+            candidate
+          end.compact.first
         end
       end
 

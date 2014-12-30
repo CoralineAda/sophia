@@ -31,11 +31,11 @@ describe Gramercy::Grammar::Parser do
 
   context "interrogative sentence" do
 
-    let(:corpus)  { "Where is your dog?"}
-    let(:parser)  { Gramercy::Grammar::Parser.new(corpus) }
+    let(:parser) { Gramercy::Grammar::Parser.new("Where is your dog?") }
 
     before do
-      Gramercy::PartOfSpeech::Verb.create(base_form: "is")
+      Gramercy::PartOfSpeech::Verb.create!(base_form: "is")
+      Gramercy::PartOfSpeech::Interrogative.create!(base_form: "where", type: "location")
     end
 
     it "finds an interrogative" do
@@ -63,6 +63,9 @@ describe Gramercy::Grammar::Parser do
   describe "context" do
 
     before do
+
+      Gramercy::PartOfSpeech::Verb.create!(base_form: "is")
+      Gramercy::PartOfSpeech::Interrogative.create!(base_form: "why", type: "reason")
 
       Gramercy::Meta::Context.all.map(&:destroy)
       Gramercy::Meta::Root.all.map(&:destroy)

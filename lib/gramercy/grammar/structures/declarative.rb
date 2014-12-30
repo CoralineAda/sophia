@@ -1,7 +1,18 @@
 module Gramercy
   module Grammar
     module Structures
-      class SimpleDeclarative < Sentence
+
+      # Elpheba is my cat.
+      class SimpleDeclarative
+
+        include SentenceInitializer
+
+        def conforms?
+          true
+        end
+
+        def interrogative
+        end
 
         def subject
           (split_text[0..(verb_position - 1)]).join(" ")
