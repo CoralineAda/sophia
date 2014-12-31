@@ -7,9 +7,9 @@ module Gramercy
 
       WORD_LIST = {
         article:         Gramercy::PartOfSpeech::Article.all.map(&:base_form),
-        greeting:        %w{ hi hello evening morning hii hiii hiiii guten ohai hai ahoy yo heya},
         adverb:          Gramercy::PartOfSpeech::Adverb.all.map(&:base_form),
         conjunction:     Gramercy::PartOfSpeech::Conjunction.all.map(&:base_form),
+        greeting:        %w{ hi hello evening morning hii hiii hiiii guten ohai hai ahoy yo heya},
         interrogative:   Gramercy::PartOfSpeech::Interrogative.all.map(&:base_form),
         number:          %w{ one two three four five six seven eight nine ten twenty thirty forty fifty sixty seventy eighty ninety hundred thousand million },
         preposition:     Gramercy::PartOfSpeech::Preposition.all.map(&:base_form),

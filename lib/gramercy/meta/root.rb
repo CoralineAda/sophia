@@ -12,6 +12,8 @@ module Gramercy
 
       has_many :both, :contexts, model_class: Meta::Context, rel_class: Meta::Expression
 
+      attr_accessor :positivity
+
       def positivity_in_context(context)
         query_as(:w).match('s-[EXPRESSED_AS]->n1').where("n1.base_form='#{self.base_form}'").pluck('EXPRESSED_AS.positivity').first
       end

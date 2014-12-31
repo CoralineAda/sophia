@@ -2,7 +2,7 @@ module Gramercy
   module Grammar
     module Structures
 
-      # What is your favorite song?
+      # What is your favorite movie?
       class SimpleQuestionWithInterrogative
 
         include SentenceInitializer
@@ -44,8 +44,11 @@ module Gramercy
           self.verb_position == 0
         end
 
+        def interrogative
+        end
+
         def subject
-          noun_phrases.first
+          noun_phrases[0..-2].reject{|w| all_adjectives.include? w}.first
         end
 
         def predicate
@@ -53,7 +56,6 @@ module Gramercy
         end
 
         def noun_phrases
-          re = Regexp.union((all_articles).flatten.map{|w| /\b#{Regexp.escape(w)} /i})
           @noun_phrases ||= split_text[verb_position + 1..-1].reject{|w| all_articles.include? w}
         end
 
@@ -61,6 +63,10 @@ module Gramercy
 
         def all_articles
           @all_articles ||= PartOfSpeech::Article.base_forms
+        end
+
+        def all_adjectives
+          @all_adjectives ||= PartOfSpeech::Adjective.base_forms
         end
 
       end

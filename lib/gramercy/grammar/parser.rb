@@ -19,6 +19,10 @@ module Gramercy
       end
 
       def context
+        Meta::Context.from(nouns).first
+      end
+
+      def contexts
         Meta::Context.from(nouns)
       end
 
