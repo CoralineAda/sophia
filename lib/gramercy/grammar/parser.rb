@@ -54,7 +54,11 @@ module Gramercy
       end
 
       def predicate
-        parser.predicate
+        begin
+          parser.predicate
+        rescue
+          '-'
+        end
       end
 
       def split_text
@@ -65,7 +69,11 @@ module Gramercy
       end
 
       def subject
-        parser.subject
+        begin
+          parser.subject
+        rescue
+          '-'
+        end
       end
 
       def verb
