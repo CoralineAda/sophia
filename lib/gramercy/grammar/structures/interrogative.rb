@@ -47,26 +47,26 @@ module Gramercy
         def interrogative
         end
 
+        # TODO Split before the last article or adjective?
         def subject
-          noun_phrases[0..-2].reject{|w| all_adjectives.include? w}.first
+          subject ||= begin
+            phrases = noun_phrases[0..-2]
+            phrases = phrases - Gramercy::PartOfSpeech::Adjective.any_in(base_form: phrases).map(&:base_form)
+            phrases = phrases - Gramercy::PartOfSpeech::Pronoun.any_in(base_form: phrases).map(&:base_form)
+            phrases.first
+          end
         end
 
         def predicate
-          noun_phrases.last
+         (noun_phrases - [subject])[noun_phrases.index(subject.split(' ').last)..-1].join(' ')
         end
 
         def noun_phrases
-          @noun_phrases ||= split_text[verb_position + 1..-1].reject{|w| all_articles.include? w}
-        end
-
-        private
-
-        def all_articles
-          @all_articles ||= PartOfSpeech::Article.base_forms
-        end
-
-        def all_adjectives
-          @all_adjectives ||= PartOfSpeech::Adjective.base_forms
+          @noun_phrases ||= begin
+            phrases = split_text[verb_position + 1..-1]
+#            phrases = phrases - Gramercy::PartOfSpeech::Article.any_in(base_form: phrases).map(&:base_form)
+            phrases
+          end
         end
 
       end

@@ -29,19 +29,21 @@ module Gramercy
       end
 
       def words_with_positivity(positivity)
-        roots.query_as(:w).match('s-[EXPRESSED_AS]->n2').where("EXPRESSED_AS.positivity = #{positivity}").pluck('DISTINCT n2')
+        return positive_expressions if positivity > 0
+        return negative_expressions if positivity < 0
+        return neutral_expressions  if positivity == 0
       end
 
       def positive_expressions
-        roots.query_as(:w).match('s-[EXPRESSED_AS]->n2').where('EXPRESSED_AS.positivity > 0').pluck('DISTINCT n2')
+        roots(:root, :rel).where('rel.positivity > 0').pluck('DISTINCT root')
       end
 
       def negative_expressions
-        roots.query_as(:w).match('s-[EXPRESSED_AS]->n2').where('EXPRESSED_AS.positivity < 0').pluck('DISTINCT n2')
+        roots(:root, :rel).where('rel.positivity < 0').pluck('DISTINCT root')
       end
 
       def neutral_expressions
-        roots.query_as(:w).match('s-[EXPRESSED_AS]->n2').where('EXPRESSED_AS.positivity = 0').pluck('DISTINCT n2')
+        roots(:root, :rel).where('rel.positivity = 0').pluck('DISTINCT root')
       end
 
     end

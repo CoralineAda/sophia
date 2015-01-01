@@ -2,6 +2,7 @@ module Gramercy
   module Grammar
     module NaiveTense
 
+      # FIXME 'am' problem with base form 'is'
       def present
         case plurality
         when :singular

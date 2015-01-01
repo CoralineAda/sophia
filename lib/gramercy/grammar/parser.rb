@@ -56,7 +56,8 @@ module Gramercy
       def predicate
         begin
           parser.predicate
-        rescue
+        rescue Exception => e
+          puts "#{e}"
           '-'
         end
       end
@@ -71,7 +72,9 @@ module Gramercy
       def subject
         begin
           parser.subject
-        rescue
+        rescue Exception => e
+          puts "#{e}"
+          puts "#{e.backtrace}"
           '-'
         end
       end

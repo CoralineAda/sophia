@@ -1,25 +1,4 @@
 Gramercy::PartOfSpeech::Adjective.create(
-  base_form: "my",
-  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:neutral],
-  is_physical: false,
-  context_names: ["possession"]
-)
-
-Gramercy::PartOfSpeech::Adjective.create(
-  base_form: "your",
-  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:neutral],
-  is_physical: false,
-  context_names: ["possession"]
-)
-
-Gramercy::PartOfSpeech::Adjective.create(
-  base_form: "our",
-  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:neutral],
-  is_physical: false,
-  context_names: ["possession"]
-)
-
-Gramercy::PartOfSpeech::Adjective.create(
   base_form: "hot",
   disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:negative],
   is_physical: true,

@@ -1,3 +1,20 @@
+# https://en.wikipedia.org/wiki/Pronoun
+
+Gramercy::PartOfSpeech::Pronoun.create(
+  base_form: "my",
+  is_possessive: true,
+)
+
+Gramercy::PartOfSpeech::Pronoun.create(
+  base_form: "your",
+  is_possessive: true,
+)
+
+Gramercy::PartOfSpeech::Pronoun.create(
+  base_form: "our",
+  is_possessive: true,
+)
+
 Gramercy::PartOfSpeech::Pronoun.create(
   base_form: "I",
   plurality: :singular,

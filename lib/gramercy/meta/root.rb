@@ -15,15 +15,17 @@ module Gramercy
       attr_accessor :positivity
 
       def positivity_in_context(context)
-        query_as(:w).match('s-[EXPRESSED_AS]->n1').where("n1.base_form='#{self.base_form}'").pluck('EXPRESSED_AS.positivity').first
+        @positivity ||= {}
+        @positivity[context.name] ||= query_as(:w).match('s-[EXPRESSED_AS]->n1').where("n1.base_form='#{self.base_form}'").pluck('EXPRESSED_AS.positivity').first
       end
 
       def antonyms_in_context(context)
-        context.antonyms_for(self)
+        return if self.positivity_in_context(context) == 0
+        context.words_with_positivity(- 1 * self.positivity_in_context(context))
       end
 
       def synonyms_in_context(context)
-        context.words_with_positivity(self.positivity_in_context(context))
+        context.words_with_positivity(self.positivity_in_context(context)) - [self]
       end
 
     end
