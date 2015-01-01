@@ -3,9 +3,9 @@ module Gramercy
     class Noun
 
       include Mongoid::Document
-      include Grammar::Stems
+#      include Grammar::Stems
       include Behavior::Agrees
-      include Disposition::HasGender
+#      include Disposition::HasGender
 
       validates_uniqueness_of :base_form
 

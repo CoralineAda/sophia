@@ -3,7 +3,7 @@ module Gramercy
     class Article
 
       include Mongoid::Document
-      include Disposition::HasPlurality
+#      include Disposition::HasPlurality
 
       validates_uniqueness_of :base_form
 

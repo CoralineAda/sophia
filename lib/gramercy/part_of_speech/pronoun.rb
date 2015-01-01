@@ -4,7 +4,7 @@ module Gramercy
 
       include Mongoid::Document
       include Behavior::Agrees
-      include Disposition::HasGender
+#      include Disposition::HasGender
 
       validates_uniqueness_of :base_form
 

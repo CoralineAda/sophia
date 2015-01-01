@@ -1,36 +1,39 @@
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "hot",
-  disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:negative],
-  is_physical: true,
-  context_names: ["temperature", "physical trait"]
-)
+  is_physical: true
+).set_root("hot")
+
+Gramercy::PartOfSpeech::Adjective.create(
+  base_form: "hot",
+  is_physical: true
+).set_root("hot")
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "cold",
   disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:negative],
   is_physical: true,
-  context_names: ["temperature", "physical trait"]
+  context_names: ["temperature"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "warm",
   disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:positive],
   is_physical: true,
-  context_names: ["temperature", "physical trait"]
+  context_names: ["temperature"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "cool",
   disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:positive],
   is_physical: true,
-  context_names: ["temperature", "physical trait"]
+  context_names: ["temperature"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
   base_form: "tepid",
   disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:negative],
   is_physical: true,
-  context_names: ["temperature", "physical trait"]
+  context_names: ["temperature"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
@@ -73,7 +76,7 @@ Gramercy::PartOfSpeech::Adjective.create(
   base_form: "large",
   disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:neutral],
   is_physical: true,
-  context_names: ["size", "physical trait"]
+  context_names: ["size"]
 )
 
 Gramercy::PartOfSpeech::Adjective.create(
@@ -97,6 +100,6 @@ colors.each do |color|
     base_form: color,
     is_physical: true,
     disposition: Gramercy::Disposition::HasPositivity::POSITIVITIES[:neutral],
-    context_names: ["color", "physical trait"]
+    context_names: ["color"]
   )
 end

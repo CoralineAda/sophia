@@ -10,10 +10,17 @@ module Gramercy
       validates_uniqueness_of :base_form
 
       property :base_form, index: :exact
-      property :is_physical, type: Boolean, default: false
+#      property :is_physical, type: Boolean, default: false
+
+      has_one :both, :root, model_class: Meta::Root
 
       def self.base_forms
         all.map(&:base_form)
+      end
+
+      def set_root(root)
+        root.adjectives << self
+        self.root = root
       end
 
       def self.pair_with_noun(word, word_form, characteristics=[])

@@ -5,7 +5,7 @@ module Gramercy
 
       include Mongoid::Document
       include Grammar::NaiveTense
-      include Grammar::Stems
+#      include Grammar::Stems
       include Behavior::Agrees
 
       validates_uniqueness_of :base_form

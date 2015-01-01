@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'dotenv'
   spec.add_dependency 'poro_plus'
   spec.add_dependency 'inflections'
+  spec.add_dependency 'lingua'
   spec.add_dependency 'marky_markov'
   spec.add_dependency 'mongoid', '>= 4.0'
   spec.add_dependency 'require_all'

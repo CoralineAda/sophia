@@ -51,7 +51,7 @@ module Gramercy
         def subject
           subject ||= begin
             phrases = noun_phrases[0..-2]
-            phrases = phrases - Gramercy::PartOfSpeech::Adjective.any_in(base_form: phrases).map(&:base_form)
+            phrases = phrases - Gramercy::PartOfSpeech::Adjective.where(base_form: phrases).map(&:base_form)
             phrases = phrases - Gramercy::PartOfSpeech::Pronoun.any_in(base_form: phrases).map(&:base_form)
             phrases.first
           end
@@ -64,7 +64,7 @@ module Gramercy
         def noun_phrases
           @noun_phrases ||= begin
             phrases = split_text[verb_position + 1..-1]
-#            phrases = phrases - Gramercy::PartOfSpeech::Article.any_in(base_form: phrases).map(&:base_form)
+            phrases = phrases - Gramercy::PartOfSpeech::Article.any_in(base_form: phrases).map(&:base_form)
             phrases
           end
         end
