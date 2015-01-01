@@ -4,7 +4,6 @@ module Gramercy
 
       include Mongoid::Document
       include Behavior::Agrees
-      include Behavior::CanBeSampled
 
       TYPES = %w{ personal impersonal location source goal time manner reason choice }
 

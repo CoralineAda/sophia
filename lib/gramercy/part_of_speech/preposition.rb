@@ -3,7 +3,6 @@ module Gramercy
     class Preposition
 
       include Mongoid::Document
-      include Behavior::CanBeSampled
 
       validates_uniqueness_of :base_form
 

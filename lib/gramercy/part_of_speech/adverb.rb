@@ -5,9 +5,6 @@ module Gramercy
       include Mongoid::Document
       include Grammar::Stems
       include Behavior::Agrees
-      include Behavior::CanBeSampled
-      include Disposition::HasContext
-      include Disposition::HasPositivity
 
       validates_uniqueness_of :base_form
 

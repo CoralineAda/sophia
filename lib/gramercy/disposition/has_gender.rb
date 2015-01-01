@@ -8,7 +8,7 @@ module Gramercy
       NONE = -1
 
       def self.included(klass)
-        klass.send(:field, :gender, type: Integer, default: -1)
+        klass.send(:property, :gender, type: Integer, default: -1)
         klass.extend(ClassMethods)
       end
 

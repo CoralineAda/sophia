@@ -2,20 +2,15 @@ module Gramercy
   module PartOfSpeech
     class Adjective
 
-      include Mongoid::Document
+      include Neo4j::ActiveNode
       include Grammar::Stems
       include Behavior::Agrees
-      include Behavior::CanBeSampled
-      include Disposition::HasContext
-      include Disposition::HasPositivity
       include Disposition::HasGender
 
       validates_uniqueness_of :base_form
 
-      field :base_form
-      field :is_physical, type: Boolean, default: false
-
-      index({ base_form: 1 }, { unique: true })
+      property :base_form, index: :exact
+      property :is_physical, type: Boolean, default: false
 
       def self.base_forms
         all.map(&:base_form)

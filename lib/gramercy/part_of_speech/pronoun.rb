@@ -5,7 +5,6 @@ module Gramercy
       include Mongoid::Document
       include Behavior::Agrees
       include Disposition::HasGender
-      include Behavior::CanBeSampled
 
       validates_uniqueness_of :base_form
 

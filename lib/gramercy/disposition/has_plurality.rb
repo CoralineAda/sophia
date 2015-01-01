@@ -3,7 +3,7 @@ module Gramercy
     module HasPlurality
 
       def self.included(klass)
-        klass.send(:field, :plurality, default: :singular)
+        klass.send(:property, :plurality, default: :singular)
         klass.extend ClassMethods
       end
 
