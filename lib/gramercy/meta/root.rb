@@ -29,7 +29,12 @@ module Gramercy
         context.words_with_positivity(- 1 * self.positivity_in_context(context))
       end
 
+      def related_in_context(context)
+        context.words_with_positivity(0)
+      end
+
       def synonyms_in_context(context)
+        return if self.positivity_in_context(context) == 0
         context.words_with_positivity(self.positivity_in_context(context)) - [self]
       end
 

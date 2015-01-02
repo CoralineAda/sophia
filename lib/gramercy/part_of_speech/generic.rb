@@ -15,22 +15,49 @@ module Gramercy
       PARTS_OF_SPEECH = %w{ adjective adverb article conjunction interrogative noun preposition pronoun verb}
 
       PROPERTY_LIST = {
-        adjective:      %w{ physical },
-        adverb:         %w{ modifies type },
-        article:        %w{ indefinite },
-        conjunction:    [],
-        interrogative:  %w{ determiner type },
-        noun:           %w{ proper countable collective physical plural_form },
-        preposition:    [],
-        pronoun:        %w{ type subject_form object_form reflexive_form },
-        verb:           %w{ identifying transitive intransitive linking s_form ed_form ing_form }
+        adjective:      {
+                          boolean_values: %w{ physical },
+                          textual_values: %w{ }
+                        },
+        adverb:         {
+                          boolean_values: %w{ },
+                          textual_values: %w{ modifies type }
+                        },
+        article:        {
+                          boolean_values: %w{ indefinite },
+                          textual_values: %w{ }
+                        },
+        conjunction:    {
+                          boolean_values: %w{ },
+                          textual_values: %w{ }
+                        },
+        interrogative:  {
+                          boolean_values: %w{ determiner },
+                          textual_values: %w{ type }
+                        },
+        noun:           {
+                          boolean_values: %w{ proper countable collective physical },
+                          textual_values: %w{ plural_form }
+                        },
+        preposition:    {
+                          boolean_values: %w{ },
+                          textual_values: %w{ }
+                        },
+        pronoun:        {
+                          boolean_values: %w{ },
+                          textual_values: %w{ type subject_form object_form reflexive_form }
+                        },
+        verb:           {
+                          boolean_values: %w{ identifying transitive intransitive linking  },
+                          textual_values: %w{ s_form ed_form ing_form }
+                        }
       }
 
       def self.base_forms
         all.map(&:base_form)
       end
 
-      def set_property(name, value=true)
+      def set_property(name, value)
         self.properties << PartOfSpeech::Property.find_or_create_by(name: name.to_s, value: value)
       end
 
