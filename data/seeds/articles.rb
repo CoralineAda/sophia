@@ -1,58 +1,44 @@
-Gramercy::PartOfSpeech::Article.create(
-  base_form: "a",
-  plurality: :singular,
-  is_indefinite: true
-)
+word = Gramercy::PartOfSpeech::Generic.find_or_create_by( base_form: 'a', type: 'article' )
+word.set_property('plurality', 'singular')
+word.set_property('indefinite', 'true')
 
-Gramercy::PartOfSpeech::Article.create(
-  base_form: "an",
-  plurality: :singular,
-  is_indefinite: true
-)
+word = Gramercy::PartOfSpeech::Generic.find_or_create_by( base_form: 'an', type: 'article' )
+word.set_property('plurality', 'singular')
+word.set_property('indefinite', 'true')
 
-Gramercy::PartOfSpeech::Article.create(
-  base_form: "one",
-  plurality: :singular,
-  is_indefinite: true
-)
+word = Gramercy::PartOfSpeech::Generic.find_or_create_by( base_form: 'one', type: 'article' )
+word.set_property('plurality', 'singular')
+word.set_property('indefinite', 'true')
 
-Gramercy::PartOfSpeech::Article.create(
-  base_form: "some",
-  plurality: :plural,
-  is_indefinite: true
-)
+word = Gramercy::PartOfSpeech::Generic.find_or_create_by( base_form: 'some', type: 'article' )
+word.set_property('plurality', 'plural')
+word.set_property('indefinite', 'true')
 
-Gramercy::PartOfSpeech::Article.create(
-  base_form: "few",
-  plurality: :plural,
-  is_indefinite: true
-)
+word = Gramercy::PartOfSpeech::Generic.find_or_create_by( base_form: 'few', type: 'article' )
+word.set_property('plurality', 'plural')
+word.set_property('indefinite', 'true')
 
-Gramercy::PartOfSpeech::Article.create(
-  base_form: "the",
-  is_indefinite: false
-)
+word = Gramercy::PartOfSpeech::Generic.find_or_create_by( base_form: 'the', type: 'article' )
+word.set_property('plurality', 'singular')
+word.set_property('definite', 'true')
 
-Gramercy::PartOfSpeech::Article.create(
-  base_form: "that",
-  plurality: :singular,
-  is_indefinite: false
-)
+word = Gramercy::PartOfSpeech::Generic.find_or_create_by( base_form: 'that', type: 'article' )
+word.set_property('plurality', 'singular')
+word.set_property('definite', 'true')
 
-Gramercy::PartOfSpeech::Article.create(
-  base_form: "most",
-  plurality: :plural,
-  is_indefinite: true
-)
+word = Gramercy::PartOfSpeech::Generic.find_or_create_by( base_form: 'those', type: 'article' )
+word.set_property('plurality', 'plural')
+word.set_property('definite', 'true')
 
-Gramercy::PartOfSpeech::Article.create(
-  base_form: "many",
-  plurality: :plural,
-  is_indefinite: true
-)
+word = Gramercy::PartOfSpeech::Generic.find_or_create_by( base_form: 'most', type: 'article' )
+word.set_property('plurality', 'plural')
+word.set_property('indefinite', 'true')
 
-Gramercy::PartOfSpeech::Article.create(
-  base_form: "some",
-  plurality: :plural,
-  is_indefinite: false
-)
+word = Gramercy::PartOfSpeech::Generic.find_or_create_by( base_form: 'many', type: 'article' )
+word.set_property('plurality', 'plural')
+word.set_property('indefinite', 'true')
+
+word = Gramercy::PartOfSpeech::Generic.find_or_create_by( base_form: 'some', type: 'article' )
+word.set_property('plurality', 'plural')
+word.set_property('definite', 'true')
+

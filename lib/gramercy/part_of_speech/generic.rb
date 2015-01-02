@@ -4,7 +4,7 @@ module Gramercy
 
       include Neo4j::ActiveNode
 
-      validates_uniqueness_of :base_form, context: :type
+      validate :unique_within_type
 
       property :base_form, index: :exact
       property :type
@@ -84,6 +84,15 @@ module Gramercy
       def set_root(root)
         self.root = root
         self.root.forms << self
+      end
+
+      def unique_within_type
+        return true unless existing = self.class.where(base_form: self.base_form, type: self.type).first
+        if existing && existing != self
+          self.errors[:base] << "record already exists with this base_form and type"
+        else
+          return true
+        end
       end
 
     end

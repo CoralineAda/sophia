@@ -12,30 +12,19 @@ module Gramercy
           namespace :vocabulary do
 
             desc "Reset vocabulary"
-
             task :reset do
-              Gramercy::PartOfSpeech::Adjective.delete_all
-              Gramercy::PartOfSpeech::Adverb.delete_all
-              Gramercy::PartOfSpeech::Article.delete_all
-              Gramercy::PartOfSpeech::Conjunction.delete_all
-              Gramercy::PartOfSpeech::Interrogative.delete_all
-              Gramercy::PartOfSpeech::Noun.delete_all
-              Gramercy::PartOfSpeech::Preposition.delete_all
-              Gramercy::PartOfSpeech::Pronoun.delete_all
-              Gramercy::PartOfSpeech::Verb.delete_all
+              Neo4j::Session.open(:server_db)
+              Gramercy::PartOfSpeech::Generic.where(type: 'article').map(&:destroy)
+              Gramercy::PartOfSpeech::Generic.where(type: 'conjunction').map(&:destroy)
+              Gramercy::PartOfSpeech::Generic.where(type: 'interrogative').map(&:destroy)
             end
 
             desc "Build default vocabulary"
             task :seeds do
-              load 'gramercy/data/seeds/adjectives.rb'
-              load 'gramercy/data/seeds/adverbs.rb'
-              load 'gramercy/data/seeds/articles.rb'
-              load 'gramercy/data/seeds/conjunctions.rb'
-              load 'gramercy/data/seeds/interrogatives.rb'
-              load 'gramercy/data/seeds/nouns.rb'
-              load 'gramercy/data/seeds/prepositions.rb'
-              load 'gramercy/data/seeds/pronouns.rb'
-              load 'gramercy/data/seeds/verbs.rb'
+              Neo4j::Session.open(:server_db)
+              load File.expand_path('../../../../data/seeds/articles.rb', __FILE__)
+              load File.expand_path('../../../../data/seeds/conjunctions.rb', __FILE__)
+              load File.expand_path('../../../../data/seeds/interrogatives.rb', __FILE__)
             end
 
           end
