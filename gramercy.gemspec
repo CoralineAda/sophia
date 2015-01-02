@@ -24,7 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'inflections'
   spec.add_dependency 'lingua'
   spec.add_dependency 'marky_markov'
-  spec.add_dependency 'mongoid', '>= 4.0'
   spec.add_dependency 'require_all'
   spec.add_dependency 'ruby-stemmer', '>=0.8.3'
   spec.add_dependency 'rubyfish'
