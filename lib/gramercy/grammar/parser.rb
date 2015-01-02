@@ -64,8 +64,8 @@ module Gramercy
 
       def split_text
         @split_text ||= begin
-          split = self.text.gsub(/#{Grammar::PartsOfSpeech::HONORIFICS * "|"}/i, '\1@@@')
-          split.gsub(/[\.\?\!]/, '').split.map{|w| w.gsub('@@@', '')}
+          # split = self.text.gsub(/#{Grammar::PartsOfSpeech::HONORIFICS * "|"}/i, '\1@@@')
+          self.text.gsub(/[\.\?\!]/, '').split.map{|w| w.gsub('@@@', '')}
         end
       end
 
@@ -84,7 +84,7 @@ module Gramercy
       end
 
       def verb_forms
-        @verb_forms ||= PartOfSpeech::Verb.all_forms
+        @verb_forms ||= PartOfSpeech::Generic.where(type: 'verb').map(&:all_forms).flatten
       end
 
     end

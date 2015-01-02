@@ -3,6 +3,7 @@ module Gramercy
     class Generic
 
       include Neo4j::ActiveNode
+      include Grammar::NaiveTense
 
       validate :unique_within_type
 
@@ -60,6 +61,16 @@ module Gramercy
       def self.join_article_and_noun(article_in_form, noun_in_form)
         return "#{article_in_form} #{noun_in_form}" unless article_in_form == "a" || article_in_form == "an"
         %w{a e i o}.include?(noun_in_form[0]) ? "an #{noun_in_form}" : "a #{noun_in_form}"
+      end
+
+      def all_forms
+        return unless self.type == 'verb'
+        [
+          self.base_form,
+          self.in_s_form,
+          self.in_ed_form,
+          self.in_ing_form
+        ]
       end
 
       def plural
