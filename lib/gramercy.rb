@@ -4,13 +4,11 @@ require 'bundler/setup'
 require 'dotenv'
 require 'neo4j'
 require 'require_all'
-require 'mongoid'
 require 'poro_plus'
 require 'active_support/notifications'
 
 Dotenv.load
 Bundler.require
-Mongoid.load!("config/mongoid.yml")
 
 require_rel 'gramercy'
 

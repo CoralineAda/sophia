@@ -57,6 +57,26 @@ module Gramercy
         all.map(&:base_form)
       end
 
+      def self.join_article_and_noun(article_in_form, noun_in_form)
+        return "#{article_in_form} #{noun_in_form}" unless article_in_form == "a" || article_in_form == "an"
+        %w{a e i o}.include?(noun_in_form[0]) ? "an #{noun_in_form}" : "a #{noun_in_form}"
+      end
+
+      def plural
+        return self.base_form_or_synonym unless self.is_countable
+        self.plural_form || self.base_form_or_synonym.pluralize
+      end
+
+      def possessive_singular
+        form = "#{self.base_form_or_synonym}'s"
+        form.gsub(/s's/, "s'")
+      end
+
+      def possessive_plural
+        form = "#{plural}'s"
+        form.gsub(/s's/, "s'")
+      end
+
       def set_property(name, value)
         self.properties << PartOfSpeech::Property.find_or_create_by(name: name.to_s, value: value)
       end
