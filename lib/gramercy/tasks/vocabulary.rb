@@ -17,14 +17,22 @@ module Gramercy
               Gramercy::PartOfSpeech::Generic.where(type: 'article').map(&:destroy)
               Gramercy::PartOfSpeech::Generic.where(type: 'conjunction').map(&:destroy)
               Gramercy::PartOfSpeech::Generic.where(type: 'interrogative').map(&:destroy)
+              Gramercy::PartOfSpeech::Generic.where(type: 'preposition').map(&:destroy)
             end
 
             desc "Build default vocabulary"
             task :seeds do
               Neo4j::Session.open(:server_db)
+
+              Gramercy::PartOfSpeech::Generic.where(type: 'article').map(&:destroy)
+              Gramercy::PartOfSpeech::Generic.where(type: 'conjunction').map(&:destroy)
+              Gramercy::PartOfSpeech::Generic.where(type: 'interrogative').map(&:destroy)
+              Gramercy::PartOfSpeech::Generic.where(type: 'preposition').map(&:destroy)
+
               load File.expand_path('../../../../data/seeds/articles.rb', __FILE__)
               load File.expand_path('../../../../data/seeds/conjunctions.rb', __FILE__)
               load File.expand_path('../../../../data/seeds/interrogatives.rb', __FILE__)
+              load File.expand_path('../../../../data/seeds/prepositions.rb', __FILE__)
             end
 
           end

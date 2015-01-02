@@ -20,10 +20,6 @@ word = Gramercy::PartOfSpeech::Generic.create!( base_form: 'whom', type: 'interr
 word.set_property('type', 'personal')
 word.set_property('pronoun', 'true')
 
-word = Gramercy::PartOfSpeech::Generic.create!( base_form: 'what', type: 'interrogative')
-word.set_property('impersonal', 'true')
-word.set_property('pronoun', 'true')
-
 word = Gramercy::PartOfSpeech::Generic.create!( base_form: 'where', type: 'interrogative')
 word.set_property('type', 'location')
 word.set_property('is_proadverb', 'true')

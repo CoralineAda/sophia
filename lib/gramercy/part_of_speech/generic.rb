@@ -48,7 +48,7 @@ module Gramercy
                           textual_values: %w{ type subject_form object_form reflexive_form }
                         },
         verb:           {
-                          boolean_values: %w{ identifying transitive intransitive linking  },
+                          boolean_values: %w{ transitive intransitive linking  },
                           textual_values: %w{ s_form ed_form ing_form }
                         }
       }
@@ -89,7 +89,7 @@ module Gramercy
       def unique_within_type
         return true unless existing = self.class.where(base_form: self.base_form, type: self.type).first
         if existing && existing != self
-          self.errors[:base] << "record already exists with this base_form and type"
+          self.errors[:base] << "record already exists with base_form #{self.base_form} and type #{self.type}"
         else
           return true
         end
