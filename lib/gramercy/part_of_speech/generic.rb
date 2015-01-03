@@ -73,9 +73,19 @@ module Gramercy
         ]
       end
 
+      def person
+        return unless my_person = self.properties.where(name: "person")
+        my_person.value
+      end
+
       def plural
         return self.base_form_or_synonym unless self.is_countable
         self.plural_form || self.base_form_or_synonym.pluralize
+      end
+
+      def plurality
+        return unless my_plurality = self.properties.where(name: "plurality")
+        my_plurality.value
       end
 
       def possessive_singular
@@ -99,6 +109,7 @@ module Gramercy
 
       def unique_within_type
         return true unless existing = self.class.where(base_form: self.base_form, type: self.type).first
+        return true if self.type == "pronoun"
         if existing && existing != self
           self.errors[:base] << "record already exists with base_form #{self.base_form} and type #{self.type}"
         else

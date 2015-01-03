@@ -18,6 +18,7 @@ module Gramercy
               Gramercy::PartOfSpeech::Generic.where(type: 'conjunction').map(&:destroy)
               Gramercy::PartOfSpeech::Generic.where(type: 'interrogative').map(&:destroy)
               Gramercy::PartOfSpeech::Generic.where(type: 'preposition').map(&:destroy)
+              Gramercy::PartOfSpeech::Generic.where(type: 'pronoun').map(&:destroy)
             end
 
             desc "Build default vocabulary"
@@ -28,11 +29,13 @@ module Gramercy
               Gramercy::PartOfSpeech::Generic.where(type: 'conjunction').map(&:destroy)
               Gramercy::PartOfSpeech::Generic.where(type: 'interrogative').map(&:destroy)
               Gramercy::PartOfSpeech::Generic.where(type: 'preposition').map(&:destroy)
+              Gramercy::PartOfSpeech::Generic.where(type: 'pronoun').map(&:destroy)
 
               load File.expand_path('../../../../data/seeds/articles.rb', __FILE__)
               load File.expand_path('../../../../data/seeds/conjunctions.rb', __FILE__)
               load File.expand_path('../../../../data/seeds/interrogatives.rb', __FILE__)
               load File.expand_path('../../../../data/seeds/prepositions.rb', __FILE__)
+              load File.expand_path('../../../../data/seeds/pronouns.rb', __FILE__)
             end
 
           end

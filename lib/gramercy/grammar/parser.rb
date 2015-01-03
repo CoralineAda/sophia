@@ -23,7 +23,7 @@ module Gramercy
       end
 
       def contexts
-        Meta::Context.from(nouns)
+        @contexts ||= Meta::Context.from(nouns)
       end
 
       def interrogative

@@ -1,264 +1,181 @@
-# https://en.wikipedia.org/wiki/Pronoun
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "my")
+word.set_property("is_possessive", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "my",
-  is_possessive: true,
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "your")
+word.set_property("is_possessive", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "your",
-  is_possessive: true,
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "our")
+word.set_property("is_possessive", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "our",
-  is_possessive: true,
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "I")
+word.set_property("plurality", "singular")
+word.set_property("person", "first")
+word.set_property("is_subjective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "I",
-  plurality: :singular,
-  person: :first,
-  is_subjective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "you")
+word.set_property("plurality", "singular")
+word.set_property("person", "second")
+word.set_property("is_subjective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "you",
-  plurality: :singular,
-  person: :second,
-  is_subjective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "he")
+word.set_property("plurality", "singular")
+word.set_property("gender", "masculine")
+word.set_property("person", "third")
+word.set_property("is_subjective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "he",
-  plurality: :singular,
-  gender: Gramercy::Disposition::HasGender::MASCULINE,
-  person: :third,
-  is_subjective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "she")
+word.set_property("plurality", "singular")
+word.set_property("person", "third")
+word.set_property("gender", "feminine")
+word.set_property("is_subjective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "she",
-  plurality: :singular,
-  person: :third,
-  gender: Gramercy::Disposition::HasGender::FEMININE,
-  is_subjective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "it")
+word.set_property("plurality", "singular")
+word.set_property("person", "third")
+word.set_property("is_subjective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "it",
-  plurality: :singular,
-  gender: Gramercy::Disposition::HasGender::NONE,
-  person: :third,
-  is_subjective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "they")
+word.set_property("plurality", "singular")
+word.set_property("person", "third")
+word.set_property("is_subjective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "they",
-  plurality: :singular,
-  gender: Gramercy::Disposition::HasGender::NEUTRAL,
-  person: :third,
-  is_subjective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "we")
+word.set_property("plurality", "singular")
+word.set_property("person", "first")
+word.set_property("is_subjective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "we",
-  plurality: :singular,
-  person: :first,
-  is_subjective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "you")
+word.set_property("plurality", "plural")
+word.set_property("person", "second")
+word.set_property("is_subjective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "you",
-  plurality: :plural,
-  person: :second,
-  is_subjective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "they")
+word.set_property("plurality", "plural")
+word.set_property("person", "third")
+word.set_property("is_subjective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "they",
-  plurality: :plural,
-  person: :third,
-  is_subjective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "me")
+word.set_property("plurality", "singular")
+word.set_property("person", "first")
+word.set_property("is_objective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "me",
-  plurality: :singular,
-  person: :first,
-  is_objective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "you")
+word.set_property("plurality", "singular")
+word.set_property("person", "second")
+word.set_property("is_objective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "you",
-  plurality: :singular,
-  person: :second,
-  is_objective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "him")
+word.set_property("plurality", "singular")
+word.set_property("gender", "masculine")
+word.set_property("person", "third")
+word.set_property("is_objective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "him",
-  plurality: :singular,
-  gender: Gramercy::Disposition::HasGender::MASCULINE,
-  person: :third,
-  is_objective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "her")
+word.set_property("plurality", "singular")
+word.set_property("gender", "feminine")
+word.set_property("person", "third")
+word.set_property("is_objective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "her",
-  plurality: :singular,
-  gender: Gramercy::Disposition::HasGender::FEMININE,
-  person: :third,
-  is_objective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "them")
+word.set_property("plurality", "singular")
+word.set_property("person", "third")
+word.set_property("is_objective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "them",
-  plurality: :singular,
-  gender: Gramercy::Disposition::HasGender::NEUTRAL,
-  person: :third,
-  is_objective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "it")
+word.set_property("plurality", "singular")
+word.set_property("person", "third")
+word.set_property("is_objective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "it",
-  plurality: :singular,
-  gender: Gramercy::Disposition::HasGender::NONE,
-  person: :third,
-  is_objective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "we")
+word.set_property("plurality", "plural")
+word.set_property("person", "first")
+word.set_property("is_objective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "we",
-  plurality: :plural,
-  person: :first,
-  is_objective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "you")
+word.set_property("plurality", "plural")
+word.set_property("person", "second")
+word.set_property("is_objective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "you",
-  plurality: :plural,
-  person: :second,
-  is_objective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "them")
+word.set_property("plurality", "plural")
+word.set_property("gender", "0")
+word.set_property("person", "third")
+word.set_property("is_objective", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "them",
-  plurality: :plural,
-  gender: 0,
-  person: :third,
-  is_objective: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "mine")
+word.set_property("plurality", "singular")
+word.set_property("person", "first")
+word.set_property("is_possessive", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "mine",
-  plurality: :singular,
-  person: :first,
-  is_possessive: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "yours")
+word.set_property("plurality", "singular")
+word.set_property("person", "second")
+word.set_property("is_possessive", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "yours",
-  plurality: :singular,
-  person: :second,
-  is_possessive: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "his")
+word.set_property("plurality", "singular")
+word.set_property("person", "third")
+word.set_property("gender", "masculine")
+word.set_property("is_possessive", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "his",
-  plurality: :singular,
-  person: :third,
-  gender: Gramercy::Disposition::HasGender::MASCULINE,
-  is_possessive: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "hers")
+word.set_property("plurality", "singular")
+word.set_property("person", "third")
+word.set_property("gender", "feminine")
+word.set_property("is_possessive", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "hers",
-  plurality: :singular,
-  person: :third,
-  gender: Gramercy::Disposition::HasGender::FEMININE,
-  is_possessive: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "theirs")
+word.set_property("plurality", "singular")
+word.set_property("person", "third")
+word.set_property("is_possessive", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "theirs",
-  plurality: :singular,
-  person: :third,
-  gender: Gramercy::Disposition::HasGender::NEUTRAL,
-  is_possessive: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "ours")
+word.set_property("plurality", "plural")
+word.set_property("person", "first")
+word.set_property("is_possessive", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "ours",
-  plurality: :plural,
-  person: :first,
-  is_possessive: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "yours")
+word.set_property("plurality", "plural")
+word.set_property("person", "second")
+word.set_property("is_possessive", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "yours",
-  plurality: :plural,
-  person: :second,
-  is_possessive: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "theirs")
+word.set_property("plurality", "plural")
+word.set_property("person", "third")
+word.set_property("is_possessive", "true")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "theirs",
-  plurality: :plural,
-  person: :third,
-  is_possessive: true
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "everyone")
+word.set_property("plurality", "plural") #FIXME sure?
+word.set_property("person", "third")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "everyone",
-  plurality: :plural, #FIXME sure?
-  person: :third
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "noone")
+word.set_property("plurality", "singular")
+word.set_property("person", "third")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "noone",
-  plurality: :singular,
-  person: :third
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "none")
+word.set_property("plurality", "plural")
+word.set_property("person", "third")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "none",
-  plurality: :plural,
-  person: :third
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "either")
+word.set_property("plurality", "singular")
+word.set_property("person", "third")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "either",
-  plurality: :singular,
-  person: :third
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "neither")
+word.set_property("plurality", "singular")
+word.set_property("person", "third")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "neither",
-  plurality: :singular,
-  person: :third
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "this")
+word.set_property("plurality", "singular")
+word.set_property("person", "third")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "this",
-  plurality: :singular,
-  person: :third
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "those")
+word.set_property("plurality", "plural")
+word.set_property("person", "third")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "those",
-  plurality: :plural,
-  person: :third
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "these")
+word.set_property("plurality", "plural")
+word.set_property("person", "third")
 
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "these",
-  plurality: :plural,
-  person: :third
-)
-
-Gramercy::PartOfSpeech::Pronoun.create(
-  base_form: "that",
-  plurality: :singular,
-  person: :third
-)
+word = Gramercy::PartOfSpeech::Generic.create!(type: "pronoun", base_form: "that")
+word.set_property("plurality", "singular")
+word.set_property("person", "third")
