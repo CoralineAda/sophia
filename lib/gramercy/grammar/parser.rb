@@ -26,6 +26,13 @@ module Gramercy
         @contexts ||= Meta::Context.from(nouns)
       end
 
+      def positivity
+        roots = Gramercy::PartOfSpeech::Generic.query_as(:w).match('(r)-[IN_FORM]->(w)').where("w.base_form in #{split_text}").return('r').map(&:r)
+        contexts.map do |context|
+          roots.map{|root| root.positivity_in_context(context).to_i }
+        end.flatten.sum
+      end
+
       def interrogative
         parser.interrogative
       end
