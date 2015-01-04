@@ -19,9 +19,10 @@ module Gramercy
         Gramercy::Meta::Root.as('root').contexts(:c).pluck('root.base_form, c.name').to_a
       end
 
+      # FIXME this is returning a positivity regardless of the specified context
       def positivity_in_context(context)
         @positivity ||= {}
-        @positivity[context.name] ||= query_as(:w).match('s-[EXPRESSED_AS]->n1').where("n1.base_form='#{self.base_form}'").pluck('EXPRESSED_AS.positivity').first
+        @positivity[context.name] ||= Meta::Context.query_as(:s).match('s-[EXPRESSED_AS]->n1').where("n1.base_form='#{self.base_form}'").pluck('EXPRESSED_AS.positivity').first
       end
 
       def antonyms_in_context(context)
