@@ -27,11 +27,12 @@ module Gramercy
       end
 
       def positivity
-        roots = Gramercy::PartOfSpeech::Generic.query_as(:w).match('(r)-[IN_FORM]->(w)').where("w.base_form in #{split_text}").return('DISTINCT r').map(&:r)
-        positivities = contexts.map do |context|
-          roots.map{|root| root.positivity_in_context(context).to_i }
-        end
-        positivities.flatten.sum
+        Gramercy::Meta::Context.
+          query_as(:c).
+          match('r-[e:EXPRESSED_AS]->(w)').
+          where("w.base_form in #{split_text}").
+          return('DISTINCT w, e.positivity').
+          sum(&:'e.positivity')
       end
 
       def interrogative
