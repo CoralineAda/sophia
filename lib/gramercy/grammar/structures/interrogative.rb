@@ -2,10 +2,31 @@ module Gramercy
   module Grammar
     module Structures
 
-      # What is your favorite movie?
-      class SimpleQuestionWithInterrogative
+      class Interrogative
 
-        include SentenceInitializer
+        attr_reader :split_text, :verb_position
+
+        SENTENCE_STRUCTURES = [
+          'SimpleQuestion',
+          'SimpleQuestionWithInterrogative'
+        ]
+
+        def self.parser(split_text, verb_position)
+          @structure ||= SENTENCE_STRUCTURES.each do |structure|
+            candidate = class_eval(structure).new(split_text, verb_position)
+            return candidate if candidate.conforms?
+          end
+        end
+
+      end
+
+      # What is your favorite movie?
+      class SimpleQuestionWithInterrogative < Interrogative
+
+        def initialize(split_text, verb_position)
+          @split_text = split_text
+          @verb_position = verb_position
+        end
 
         def conforms?
           begins_with_interrogative?
@@ -36,9 +57,12 @@ module Gramercy
       end
 
       # Is the movie scary?
-      class SimpleQuestion
+      class SimpleQuestion < Interrogative
 
-        include SentenceInitializer
+        def initialize(split_text, verb_position)
+          @split_text = split_text
+          @verb_position = verb_position
+        end
 
         def conforms?
           self.verb_position == 0
