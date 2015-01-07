@@ -13,7 +13,7 @@ module Gramercy
       has_one :both, :root, model_class: Meta::Root
       has_many :out, :properties, model_class: PartOfSpeech::Property
 
-      attr_accessor :property_attributes
+      attr_accessor :property_attributes, :root_word
 
       PARTS_OF_SPEECH = %w{ adjective adverb article conjunction interrogative noun preposition pronoun verb}
       PRIMARY_FORMS   = %w{ adjective adverb noun verb }
