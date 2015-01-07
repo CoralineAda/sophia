@@ -13,9 +13,11 @@ module Gramercy
       has_one :both, :root, model_class: Meta::Root
       has_many :out, :properties, model_class: PartOfSpeech::Property
 
-      PARTS_OF_SPEECH = %w{ adjective adverb article conjunction interrogative noun preposition pronoun verb}
+      attr_accessor :property_attributes
 
-      PROPERTY_LIST = {
+      PARTS_OF_SPEECH = %w{ adjective adverb article conjunction interrogative noun preposition pronoun verb}
+      PRIMARY_FORMS   = %w{ adjective adverb noun verb }
+      PROPERTY_LIST   = {
         adjective:      {
                           boolean_values: %w{ physical },
                           textual_values: %w{ }
@@ -98,8 +100,19 @@ module Gramercy
         form.gsub(/s's/, "s'")
       end
 
+      def property(name)
+        self.properties.detect{|p| p.name == name}
+      end
+
       def set_property(name, value)
-        self.properties << PartOfSpeech::Property.find_or_create_by(name: name.to_s, value: value)
+        if existing = property(name)
+          existing.update_attribute(:value, value)
+          existing.destroy if value.empty?
+        else
+          if value && ! value.empty?
+            self.properties << PartOfSpeech::Property.create!(name: name.to_s, value: value)
+          end
+        end
       end
 
       def set_root(root)
