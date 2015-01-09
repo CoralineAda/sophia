@@ -16,6 +16,7 @@ module Gramercy
             candidate = class_eval(structure).new(text: text, verb_positions: verb_positions, verbs: verbs)
             return candidate if candidate.conforms?
           end
+          return :declarative_parser_not_found
         end
 
         def initialize(text:, verb_positions:, verbs:)
