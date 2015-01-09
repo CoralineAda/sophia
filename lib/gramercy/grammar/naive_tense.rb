@@ -30,7 +30,7 @@ module Gramercy
       end
 
       def past
-        self.properties.where(name: 'ed_form').first.value
+        self.properties.where(name: 'ed_form').first.try(:value)
       end
 
       def past_participle
@@ -40,15 +40,15 @@ module Gramercy
       # Forms ====================================================================
 
       def in_s_form
-        self.properties.where(name: 's_form').first.value || "#{self.base_form}s".gsub(/ss$/, 's')
+        self.properties.where(name: 's_form').first.try(:value) || "#{self.base_form}s".gsub(/ss$/, 's')
       end
 
       def in_ed_form
-        self.properties.where(name: 'ed_form').first.value || "#{self.base_form}ed".gsub(/eed$/, 'ed')
+        self.properties.where(name: 'ed_form').first.try(:value) || "#{self.base_form}ed".gsub(/eed$/, 'ed')
       end
 
       def in_ing_form
-        self.properties.where(name: 'ing_form').first.value || "#{self.base_form}ing".gsub(/eing$/, 'ing')
+        self.properties.where(name: 'ing_form').first.try(:value) || "#{self.base_form}ing".gsub(/eing$/, 'ing')
       end
 
     end

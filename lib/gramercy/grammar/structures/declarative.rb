@@ -4,29 +4,30 @@ module Gramercy
 
       class Declarative
 
-        attr_reader :split_text, :verb_position
+        attr_reader :split_text, :verb_positions, :verbs
 
         # FIXME more types of declarative sentences.
         SENTENCE_STRUCTURES = [
           'SimpleDeclarative'
         ]
 
-        def self.parser(split_text, verb_position)
+        def self.parser(text: text, verb_positions: verb_positions, verbs: verbs)
           @structure ||= SENTENCE_STRUCTURES.each do |structure|
-            candidate = class_eval(structure).new(split_text, verb_position)
+            candidate = class_eval(structure).new(text: text, verb_positions: verb_positions, verbs: verbs)
             return candidate if candidate.conforms?
           end
+        end
+
+        def initialize(text:, verb_positions:, verbs:)
+          @split_text = text
+          @verb_positions = verb_positions
+          @verbs = verbs
         end
 
       end
 
       # Elpheba is my cat.
       class SimpleDeclarative < Declarative
-
-        def initialize(split_text, verb_position)
-          @split_text = split_text
-          @verb_position = verb_position
-        end
 
         def conforms?
           true
@@ -35,12 +36,29 @@ module Gramercy
         def interrogative
         end
 
-        def subject
-          (split_text[0..(verb_position - 1)]).join(" ")
+       def subject
+          subject ||= begin
+            phrases = noun_phrases[0..-2]
+            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'adjective', base_form: phrases).map(&:base_form)
+            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'pronoun', base_form: phrases).map(&:base_form)
+            phrases.first
+          end
         end
 
         def predicate
-          (split_text[(verb_position + 1)..-1]).join(" ")
+         (noun_phrases - [subject])[noun_phrases.index(subject.split(' ').last)..-1].join(' ')
+        end
+
+        def noun_phrases
+          @noun_phrases ||= begin
+            phrases = split_text[0..verb_positions.first - 1] + split_text[verb_positions.last + 1..-1]
+            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'article', base_form: phrases).map(&:base_form)
+            phrases
+          end
+        end
+
+        def verb
+          self.verbs.first
         end
 
       end

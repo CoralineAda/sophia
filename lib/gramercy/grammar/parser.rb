@@ -46,9 +46,9 @@ module Gramercy
       def parser
         @parser ||= begin
           if is_question?
-            Structures::Interrogative.parser(split_text, position_of(verb))
+            Structures::Interrogative.parser(text: split_text, verb_positions: verb_positions, verbs: verbs)
           else
-            Structures::Declarative.parser(split_text, position_of(verb))
+            Structures::Declarative.parser(text: split_text, verb_positions: verb_positions, verbs: verbs)
           end
         end
       end
@@ -84,7 +84,15 @@ module Gramercy
       end
 
       def verb
-        (split_text & verb_forms).first
+        parser.verb
+      end
+
+      def verb_positions
+        verbs.map{|verb| position_of(verb)}
+      end
+
+      def verbs
+        @verbs ||= (split_text & verb_forms)
       end
 
       def verb_forms
