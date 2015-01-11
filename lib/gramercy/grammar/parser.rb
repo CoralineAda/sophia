@@ -62,7 +62,6 @@ module Gramercy
           parser.predicate
         rescue Exception => e
           puts "#{e}"
-          '-'
         end
       end
 
@@ -79,7 +78,6 @@ module Gramercy
         rescue Exception => e
           puts "#{e}"
           puts "#{e.backtrace}"
-          '-'
         end
       end
 
