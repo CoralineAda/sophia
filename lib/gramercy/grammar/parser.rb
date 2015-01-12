@@ -13,7 +13,7 @@ module Gramercy
       end
 
       def contexts
-        @contexts ||= Meta::Context.from(nouns)
+        @contexts ||= Meta::Context.from(nouns + adjectives)
       end
 
       def positivity
@@ -23,6 +23,10 @@ module Gramercy
           where("w.base_form in #{split_text}").
           return('DISTINCT w, e.positivity').
           sum(&:'e.positivity')
+      end
+
+      def adjectives
+        parser.adjectives
       end
 
       def interrogative

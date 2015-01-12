@@ -37,7 +37,11 @@ module Gramercy
         def interrogative
         end
 
-       def subject
+        def adjectives
+          Gramercy::PartOfSpeech::Generic.where(type: 'adjective', base_form: noun_phrases).map(&:base_form)
+        end
+
+        def subject
           subject ||= begin
             phrases = noun_phrases[0..-2]
             phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'adjective', base_form: phrases).map(&:base_form)
@@ -47,12 +51,12 @@ module Gramercy
         end
 
         def predicate
-         (noun_phrases - [subject])[noun_phrases.index(subject.split(' ').last)..-1].join(' ')
+          noun_phrases[noun_phrases.index(subject)+1..-1].join(' ')
         end
 
         def noun_phrases
           @noun_phrases ||= begin
-            phrases = split_text[0..verb_positions.first - 1] + split_text[verb_positions.last + 1..-1]
+            phrases = split_text[0..verb_positions.first - 1] + split_text[verb_positions.first + 1..-1]
             phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'article', base_form: phrases).map(&:base_form)
             phrases
           end

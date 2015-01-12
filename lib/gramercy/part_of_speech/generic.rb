@@ -20,7 +20,7 @@ module Gramercy
       PROPERTY_LIST   = {
         adjective:      {
                           boolean_values: %w{ physical },
-                          textual_values: %w{ }
+                          textual_values: %w{ comparative superlative }
                         },
         adverb:         {
                           boolean_values: %w{ },
@@ -51,7 +51,7 @@ module Gramercy
                           textual_values: %w{ type subject_form object_form reflexive_form }
                         },
         verb:           {
-                          boolean_values: %w{ transitive intransitive linking  },
+                          boolean_values: %w{ transitive intransitive linking },
                           textual_values: %w{ s_form ed_form ing_form }
                         }
       }

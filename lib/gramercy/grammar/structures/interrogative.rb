@@ -46,6 +46,10 @@ module Gramercy
         def subject
         end
 
+        def adjectives
+          Gramercy::PartOfSpeech::Generic.where(type: 'adjective', base_form: noun_phrases).map(&:base_form)
+        end
+
         def interrogative
           interrogatives.first
         end
@@ -64,10 +68,14 @@ module Gramercy
       class PropertyQuestion < Interrogative
 
         def conforms?
-          self.verb_positions.count > 1 && ! begins_with_interrogative?
+          self.verb_positions.count > 1 && ! begins_with_interrogative? && subject
         end
 
         def interrogative
+        end
+
+        def adjectives
+          Gramercy::PartOfSpeech::Generic.where(type: 'adjective', base_form: noun_phrases).map(&:base_form)
         end
 
         def verb
@@ -112,6 +120,10 @@ module Gramercy
         def interrogative
         end
 
+        def adjectives
+          Gramercy::PartOfSpeech::Generic.where(type: 'adjective', base_form: noun_phrases).map(&:base_form)
+        end
+
         # TODO Split before the last article or adjective?
         def subject
           subject ||= begin
@@ -123,7 +135,7 @@ module Gramercy
         end
 
         def predicate
-         (noun_phrases - [subject])[noun_phrases.index(subject.split(' ').last)..-1].join(' ')
+          (noun_phrases - [subject])[noun_phrases.index(subject.split(' ').last)..-1].join(' ')
         end
 
         def noun_phrases
