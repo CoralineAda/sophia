@@ -12,15 +12,22 @@ module Gramercy
         Meta::Context.from(nouns).first
       end
 
+      def stemmed_words
+        @stemmed_words ||= begin
+          words = nouns + adjectives
+          words + words.map{ |word| Lingua::Stemmer.new.stem(word) }
+        end
+      end
+
       def contexts
-        @contexts ||= Meta::Context.from(nouns + adjectives)
+        @contexts ||= Meta::Context.from(stemmed_words)
       end
 
       def positivity
         Gramercy::Meta::Context.
           query_as(:c).
           match('r-[e:EXPRESSED_AS]->(w)').
-          where("w.base_form in #{split_text}").
+          where("w.base_form in #{stemmed_words}").
           return('DISTINCT w, e.positivity').
           sum(&:'e.positivity')
       end

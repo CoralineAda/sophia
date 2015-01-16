@@ -3,6 +3,7 @@ module Gramercy
     class Root
 
       include Neo4j::ActiveNode
+      include Grammar::Stems
 
       property :base_form, index: :exact
       property :created_at, type: DateTime
