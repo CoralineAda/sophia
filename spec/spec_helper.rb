@@ -15,8 +15,16 @@ RSpec.configure do |config|
     Neo4j::Session.current._query('MATCH (c) OPTIONAL MATCH (c)-[r]-n DELETE n,r,c')
   end
 
-  config.around(:each) do |example|
-    example.run
+  def delete_all
+    Neo4j::Session.current._query('MATCH (c) OPTIONAL MATCH (c)-[r]-n DELETE n,r,c')
+  end
+
+  config.before(:each) do |example|
+    delete_all
+  end
+
+  config.after(:all) do |example|
+    delete_all
   end
 
 end

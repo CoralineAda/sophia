@@ -34,6 +34,10 @@ module Gramercy
         return neutral_expressions  if positivity == 0
       end
 
+      def positivity_of(root)
+        roots(:root, :rel).pluck('rel.positivity').first
+      end
+
       def positive_expressions
         roots(:root, :rel).where('rel.positivity > 0').pluck('DISTINCT root')
       end
