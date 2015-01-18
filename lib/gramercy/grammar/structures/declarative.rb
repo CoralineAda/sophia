@@ -42,11 +42,9 @@ module Gramercy
         end
 
         def subject
-          subject ||= begin
+          @subject ||= begin
             phrases = noun_phrases[0..-2]
-            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'adjective', base_form: phrases).map(&:base_form)
-            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'pronoun', base_form: phrases).map(&:base_form)
-            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'article', base_form: phrases).map(&:base_form)
+            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: ['adjective', 'pronoun', 'article'], base_form: phrases).map(&:base_form)
             phrases.first
           end
         end

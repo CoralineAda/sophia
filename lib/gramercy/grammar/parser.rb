@@ -104,11 +104,9 @@ module Gramercy
       end
 
       def verbs
-        @verbs ||= (split_text & verb_forms)
-      end
-
-      def verb_forms
-        @verb_forms ||= PartOfSpeech::Generic.where(type: 'verb').map(&:all_forms).flatten
+        @verbs ||= split_text.map do |word|
+          word if PartOfSpeech::Generic.verbs_with_form_matching(word).any?
+        end.flatten.compact
       end
 
     end
