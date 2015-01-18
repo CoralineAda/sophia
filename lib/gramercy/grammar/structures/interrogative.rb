@@ -34,6 +34,20 @@ module Gramercy
           @interrogatives ||= (split_text & PartOfSpeech::Generic.where(type: 'interrogative').map(&:base_form).to_a).compact
         end
 
+        def object
+          return unless article = PartOfSpeech::Generic.find_by(type: 'article', base_form: predicate.split)
+          (predicate.split - descriptors - article).first
+        end
+
+        def descriptors
+          noun_phrases.map do |phrase|
+            Gramercy::PartOfSpeech::Generic.where(
+              type: 'adjective',
+              base_form: phrase.split
+            ).map(&:base_form)
+          end.flatten.compact
+        end
+
       end
 
       # What is your favorite movie?

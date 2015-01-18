@@ -25,6 +25,9 @@ module Gramercy
           @verbs = verbs
         end
 
+        def interrogative
+        end
+
       end
 
       # Elpheba is a small, grey cat.
@@ -34,11 +37,8 @@ module Gramercy
           true
         end
 
-        def interrogative
-        end
-
         def adjectives
-          Gramercy::PartOfSpeech::Generic.where(type: 'adjective', base_form: noun_phrases).map(&:base_form)
+          descriptors
         end
 
         def subject
@@ -46,6 +46,7 @@ module Gramercy
             phrases = noun_phrases[0..-2]
             phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'adjective', base_form: phrases).map(&:base_form)
             phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'pronoun', base_form: phrases).map(&:base_form)
+            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'article', base_form: phrases).map(&:base_form)
             phrases.first
           end
         end
@@ -55,24 +56,19 @@ module Gramercy
         end
 
         def noun_phrases
-          @noun_phrases ||= begin
-            phrases = split_text[0..verb_positions.first - 1] + split_text[verb_positions.first + 1..-1]
-            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'article', base_form: phrases).map(&:base_form)
-            phrases
-          end
+          @noun_phrases ||= split_text[0..verb_positions.first - 1] + split_text[verb_positions.first + 1..-1]
         end
 
         def object
-          (noun_phrases.last.split - descriptors).first
+          return unless PartOfSpeech::Generic.where(type: 'article', base_form: predicate.split).first
+          predicate.split.last
         end
 
         def descriptors
-          noun_phrases.map do |phrase|
-            Gramercy::PartOfSpeech::Generic.where(
-              type: 'adjective',
-              base_form: phrase.split
-            ).map(&:base_form)
-          end.flatten.compact
+          Gramercy::PartOfSpeech::Generic.where(
+            type: 'adjective',
+            base_form: predicate.split
+          ).map(&:base_form)
         end
 
         def verb

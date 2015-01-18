@@ -40,6 +40,10 @@ module Gramercy
         parser.interrogative
       end
 
+      def object
+        parser.object
+      end
+
       def is_question?
         self.text =~ /\?$/
       end
@@ -78,8 +82,7 @@ module Gramercy
 
       def split_text
         @split_text ||= begin
-          # split = self.text.gsub(/#{Grammar::PartsOfSpeech::HONORIFICS * "|"}/i, '\1@@@')
-          self.text.gsub(/[\.\?\!]/, '').split.map{|w| w.gsub('@@@', '')}
+          self.text.gsub(/[\.\?\!\,]/, '').split
         end
       end
 
