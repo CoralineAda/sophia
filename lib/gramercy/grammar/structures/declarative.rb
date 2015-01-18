@@ -27,7 +27,7 @@ module Gramercy
 
       end
 
-      # Elpheba is my cat.
+      # Elpheba is a small, grey cat.
       class SimpleDeclarative < Declarative
 
         def conforms?
@@ -60,6 +60,19 @@ module Gramercy
             phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'article', base_form: phrases).map(&:base_form)
             phrases
           end
+        end
+
+        def object
+          (noun_phrases.last.split - descriptors).first
+        end
+
+        def descriptors
+          noun_phrases.map do |phrase|
+            Gramercy::PartOfSpeech::Generic.where(
+              type: 'adjective',
+              base_form: phrase.split
+            ).map(&:base_form)
+          end.flatten.compact
         end
 
         def verb
