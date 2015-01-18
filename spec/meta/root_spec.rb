@@ -6,11 +6,11 @@ describe Gramercy::Meta::Root do
   describe "::all_with_context_names" do
 
     before do
-      @disposition = Gramercy::Meta::Context.create(name: "disposition")
-      @charity = Gramercy::Meta::Context.create(name: "charity")
+      @disposition = Gramercy::Meta::Context.find_or_create_by(name: "disposition")
+      @charity = Gramercy::Meta::Context.find_or_create_by(name: "charity")
 
-      @scroogey = Gramercy::Meta::Root.create(base_form: "scrooge")
-      @nice = Gramercy::Meta::Root.create(base_form: "nice")
+      @scroogey = Gramercy::Meta::Root.find_or_create_by(base_form: "scrooge")
+      @nice = Gramercy::Meta::Root.find_or_create_by(base_form: "nice")
 
       @disposition.add_expression(@scroogey, -5)
       @disposition.add_expression(@nice, 5)
@@ -29,8 +29,8 @@ describe Gramercy::Meta::Root do
   describe "#positivity_in_context" do
 
     before do
-      @disposition = Gramercy::Meta::Context.create(name: "disposition")
-      @scroogey = Gramercy::Meta::Root.create(base_form: "scrooge")
+      @disposition = Gramercy::Meta::Context.find_or_create_by(name: "disposition")
+      @scroogey = Gramercy::Meta::Root.find_or_create_by(base_form: "scrooge")
       @disposition.add_expression(@scroogey, -5)
     end
 
@@ -43,11 +43,11 @@ describe Gramercy::Meta::Root do
   context "synonyms and antonyms" do
 
     before do
-      @disposition = Gramercy::Meta::Context.create(name: "disposition")
-      @scroogey = Gramercy::Meta::Root.create(base_form: "scrooge")
-      @selfish = Gramercy::Meta::Root.create(base_form: "selfish")
-      @charitable = Gramercy::Meta::Root.create(base_form: "charitable")
-      @neutral = Gramercy::Meta::Root.create(base_form: "neutral")
+      @disposition = Gramercy::Meta::Context.find_or_create_by(name: "disposition")
+      @scroogey = Gramercy::Meta::Root.find_or_create_by(base_form: "scrooge")
+      @selfish = Gramercy::Meta::Root.find_or_create_by(base_form: "selfish")
+      @charitable = Gramercy::Meta::Root.find_or_create_by(base_form: "charitable")
+      @neutral = Gramercy::Meta::Root.find_or_create_by(base_form: "neutral")
 
       @disposition.add_expression(@scroogey, -5)
       @disposition.add_expression(@selfish, -3)

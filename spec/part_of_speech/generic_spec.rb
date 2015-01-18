@@ -52,7 +52,7 @@ describe Gramercy::PartOfSpeech::Generic do
   describe "#set_property" do
 
     before do
-      @word = Gramercy::PartOfSpeech::Generic.create(base_form: "beverage")
+      @word = Gramercy::PartOfSpeech::Generic.find_or_create_by(base_form: "beverage")
     end
 
     it "sets a new property" do
@@ -64,6 +64,7 @@ describe Gramercy::PartOfSpeech::Generic do
       @word.set_property("plural", "beveri")
       expect(@word.property("plural").value).to eq("beveri")
     end
+
   end
 
   describe "#set_root" do

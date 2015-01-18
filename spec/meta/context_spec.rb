@@ -6,14 +6,14 @@ describe Gramercy::Meta::Context do
 
     before do
 
-      @gaiman = Gramercy::Meta::Context.create!(name: "gaiman")
-      @mckean = Gramercy::Meta::Context.create!(name: "mckean")
-      @lovecraft = Gramercy::Meta::Context.create!(name: "lovecraft")
+      @gaiman = Gramercy::Meta::Context.find_or_create_by(name: "gaiman")
+      @mckean = Gramercy::Meta::Context.find_or_create_by(name: "mckean")
+      @lovecraft = Gramercy::Meta::Context.find_or_create_by(name: "lovecraft")
 
-      @sandman = Gramercy::Meta::Root.create!(base_form: "sandman")
-      @coraline = Gramercy::Meta::Root.create!(base_form: "coraline")
-      @mirrormask = Gramercy::Meta::Root.create!(base_form: "mirrormask")
-      @cthulhu = Gramercy::Meta::Root.create!(base_form: "call of cthulhu")
+      @sandman = Gramercy::Meta::Root.find_or_create_by(base_form: "sandman")
+      @coraline = Gramercy::Meta::Root.find_or_create_by(base_form: "coraline")
+      @mirrormask = Gramercy::Meta::Root.find_or_create_by(base_form: "mirrormask")
+      @cthulhu = Gramercy::Meta::Root.find_or_create_by(base_form: "call of cthulhu")
 
       @gaiman.add_expression(@sandman)
       @mckean.add_expression(@coraline)
@@ -39,8 +39,8 @@ describe Gramercy::Meta::Context do
   describe "#add_expression" do
 
     before do
-      @gaiman = Gramercy::Meta::Context.create!(name: "gaiman")
-      @death = Gramercy::Meta::Root.create!(base_form: "death becomes her")
+      @gaiman = Gramercy::Meta::Context.find_or_create_by(name: "gaiman")
+      @death = Gramercy::Meta::Root.find_or_create_by(base_form: "death becomes her")
       @gaiman.add_expression(@death)
     end
 
@@ -53,13 +53,13 @@ describe Gramercy::Meta::Context do
   describe "#positivity_of" do
 
     before do
-      @gaiman = Gramercy::Meta::Context.create!(name: "gaiman")
-      @death = Gramercy::Meta::Root.create!(base_form: "death becomes her")
-      @gaiman.add_expression(@death, 5)
+      @blackwood = Gramercy::Meta::Context.find_or_create_by(name: "blackwood")
+      @trees = Gramercy::Meta::Root.find_or_create_by(base_form: "the man whom the trees loved")
+      @blackwood.add_expression(@trees, 5)
     end
 
-    it "sets the positivity of the edge" do
-      expect(@gaiman.positivity_of(@death)).to eq(5)
+    it "gets the positivity of the edge" do
+      expect(@blackwood.positivity_of(@trees)).to eq(5)
     end
 
   end
@@ -67,10 +67,10 @@ describe Gramercy::Meta::Context do
   context "positivity" do
 
     before do
-      @artwork = Gramercy::Meta::Context.create!(name: "artwork")
-      @sandman = Gramercy::Meta::Root.create!(base_form: "sandman")
-      @constantine = Gramercy::Meta::Root.create!(base_form: "constantine")
-      @batgirl = Gramercy::Meta::Root.create!(base_form: "batgirl")
+      @artwork = Gramercy::Meta::Context.find_or_create_by(name: "artwork")
+      @sandman = Gramercy::Meta::Root.find_or_create_by(base_form: "sandman")
+      @constantine = Gramercy::Meta::Root.find_or_create_by(base_form: "constantine")
+      @batgirl = Gramercy::Meta::Root.find_or_create_by(base_form: "batgirl")
 
       @artwork.add_expression(@sandman, 5)
       @artwork.add_expression(@constantine, 0)

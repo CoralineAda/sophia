@@ -16,7 +16,10 @@ RSpec.configure do |config|
   end
 
   def delete_all
-    Neo4j::Session.current._query('MATCH (c) OPTIONAL MATCH (c)-[r]-n DELETE n,r,c')
+    Gramercy::Meta::Root.destroy_all
+    Gramercy::Meta::Context.destroy_all
+    Gramercy::PartOfSpeech::Generic.destroy_all
+    Gramercy::PartOfSpeech::Property.destroy_all
   end
 
   config.before(:each) do |example|
