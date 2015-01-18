@@ -1,3 +1,8 @@
-# MarkovGrammar
+# Gramercy
 
-See https://github.com/neo4jrb/neo4j/wiki/How-To-Test for test setup prereqs.
+
+## Testing
+
+* To start the neo4j database for the test environment, use:
+
+    `rake neo4j:start[test]`

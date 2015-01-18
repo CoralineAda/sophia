@@ -80,26 +80,6 @@ module Gramercy
         my_person.value
       end
 
-      def plural
-        return self.base_form_or_synonym unless self.is_countable
-        self.plural_form || self.base_form_or_synonym.pluralize
-      end
-
-      def plurality
-        return unless my_plurality = self.properties.where(name: "plurality")
-        my_plurality.value
-      end
-
-      def possessive_singular
-        form = "#{self.base_form_or_synonym}'s"
-        form.gsub(/s's/, "s'")
-      end
-
-      def possessive_plural
-        form = "#{plural}'s"
-        form.gsub(/s's/, "s'")
-      end
-
       def property(name)
         self.properties.detect{|p| p.name == name}
       end
