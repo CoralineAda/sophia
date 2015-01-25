@@ -52,6 +52,29 @@ describe Gramercy::Grammar::Parser do
 
     end
 
+    context "Is a cat an animal?" do
+
+      let(:parser) { Gramercy::Grammar::Structures::Interrogative.parser(
+          text: %w{is a cat an animal},
+          verb_positions: [0],
+          verbs: %w{is}
+        )
+      }
+
+      it "is handled by SimpleQuestion" do
+        expect(parser.class.name).to eq("Gramercy::Grammar::Structures::SimpleQuestion")
+      end
+
+      it "finds the subject" do
+        expect(parser.subject).to eq("cat")
+      end
+
+      it "finds the object" do
+        expect(parser.object).to eq("animal")
+      end
+
+    end
+
     context "Is the movie scary?" do
 
       let(:parser) { Gramercy::Grammar::Structures::Interrogative.parser(

@@ -61,6 +61,7 @@ describe Gramercy::PartOfSpeech::Generic do
     end
 
     it "updates an existing property" do
+      @word.set_property("plural", "beverages")
       @word.set_property("plural", "beveri")
       expect(@word.property("plural").value).to eq("beveri")
     end

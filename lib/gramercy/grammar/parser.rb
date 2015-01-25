@@ -16,7 +16,7 @@ module Gramercy
         @stemmed_words ||= begin
           words = nouns + adjectives
           words + words.map{ |word| Lingua::Stemmer.new.stem(word) }
-        end
+        end.uniq
       end
 
       def contexts

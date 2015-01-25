@@ -35,7 +35,7 @@ module Gramercy
         end
 
         def object
-          return unless article = PartOfSpeech::Generic.find_by(type: 'article', base_form: predicate.split)
+          return predicate unless article = PartOfSpeech::Generic.find_by(type: 'article', base_form: predicate.split)
           (predicate.split - descriptors - article).first
         end
 
@@ -98,10 +98,9 @@ module Gramercy
 
         # TODO Split before the last article or adjective?
         def subject
-          subject ||= begin
+          @subject ||= begin
             phrases = noun_phrases[0..-2]
-            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'adjective', base_form: phrases).map(&:base_form)
-            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'pronoun', base_form: phrases).map(&:base_form)
+            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: ['adjective', 'pronoun'], base_form: phrases).map(&:base_form)
             phrases.first
           end
         end
@@ -140,10 +139,9 @@ module Gramercy
 
         # TODO Split before the last article or adjective?
         def subject
-          subject ||= begin
+          @subject ||= begin
             phrases = noun_phrases[0..-2]
-            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'adjective', base_form: phrases).map(&:base_form)
-            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'pronoun', base_form: phrases).map(&:base_form)
+            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: ['adjective', 'pronoun'], base_form: phrases).map(&:base_form)
             phrases.first
           end
         end
