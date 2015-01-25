@@ -107,8 +107,8 @@ describe Gramercy::Grammar::Parser do
         expect(parser.predicate).to eq("cute")
       end
 
-      it "does not find an object" do
-        expect(parser.object).to be_nil
+      it "defaults the object to the predicate" do
+        expect(parser.object).to eq("cute")
       end
 
       it "finds descriptors" do

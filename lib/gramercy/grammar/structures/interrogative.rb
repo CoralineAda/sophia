@@ -36,7 +36,7 @@ module Gramercy
 
         def object
           return predicate unless article = PartOfSpeech::Generic.find_by(type: 'article', base_form: predicate.split)
-          (predicate.split - descriptors - article).first
+          (predicate.split - descriptors - [article]).last
         end
 
         def descriptors

@@ -8,6 +8,7 @@ describe Gramercy::Grammar::Parser do
       Gramercy::PartOfSpeech::Generic.create(base_form: "what", type: "interrogative")
       Gramercy::PartOfSpeech::Generic.create(base_form: "the", type: "article")
       Gramercy::PartOfSpeech::Generic.create(base_form: "a", type: "article")
+      Gramercy::PartOfSpeech::Generic.create(base_form: "an", type: "article")
     end
 
     context "What is your favorite movie?" do
