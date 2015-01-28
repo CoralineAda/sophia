@@ -28,14 +28,8 @@ module Gramercy
         Meta::Expression.create(from_node: self, to_node: root, positivity: positivity)
       end
 
-      def words_with_positivity(positivity)
-        return positive_expressions if positivity > 0
-        return negative_expressions if positivity < 0
-        return neutral_expressions  if positivity == 0
-      end
-
       def positivity_of(root)
-        roots(:root, :rel).pluck('rel.positivity').first
+        root.rels(type: "EXPRESSED_AS", between: self).map(&:positivity).first
       end
 
       def positive_expressions
@@ -48,6 +42,12 @@ module Gramercy
 
       def neutral_expressions
         roots(:root, :rel).where('rel.positivity = 0').pluck('DISTINCT root')
+      end
+
+      def words_with_positivity(positivity)
+        return positive_expressions if positivity > 0
+        return negative_expressions if positivity < 0
+        return neutral_expressions  if positivity == 0
       end
 
     end

@@ -35,8 +35,9 @@ module Gramercy
         end
 
         def object
-          return predicate unless article = PartOfSpeech::Generic.find_by(type: 'article', base_form: predicate.split)
-          (predicate.split - descriptors - [article]).last
+          return @object if @object
+          @object ||=  predicate unless article = PartOfSpeech::Generic.find_by(type: 'article', base_form: predicate.split)
+          @object ||= (predicate.split - descriptors - [article]).last
         end
 
         def descriptors
@@ -70,6 +71,13 @@ module Gramercy
 
         def predicate
           (split_text[(verb_positions.first + 1)..-1]).join(" ")
+        end
+
+        def noun_phrases
+          @noun_phrases ||= begin
+            phrases = split_text[verb_positions.first + 1..-1]
+            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: 'article', base_form: phrases).map(&:base_form)
+          end
         end
 
         def verb

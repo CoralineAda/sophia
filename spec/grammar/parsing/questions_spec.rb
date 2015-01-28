@@ -99,6 +99,29 @@ describe Gramercy::Grammar::Parser do
 
     end
 
+    context "What is a monster?" do
+
+      let(:parser) { Gramercy::Grammar::Structures::Interrogative.parser(
+          text: %w{what is a monster},
+          verb_positions: [1],
+          verbs: %w{is}
+        )
+      }
+
+      it "is handled by SimpleQuestion" do
+        expect(parser.class.name).to eq("Gramercy::Grammar::Structures::SimpleQuestionWithInterrogative")
+      end
+
+      it "finds the subject" do
+        expect(parser.subject).to be_nil
+      end
+
+      it "finds the object" do
+        expect(parser.object).to eq("monster")
+      end
+
+    end
+
   end
 
 end
