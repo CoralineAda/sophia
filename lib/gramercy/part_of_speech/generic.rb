@@ -51,7 +51,7 @@ module Gramercy
                           textual_values: %w{ type subject_form object_form reflexive_form }
                         },
         verb:           {
-                          boolean_values: %w{ transitive intransitive linking },
+                          boolean_values: %w{ transitive intransitive linking being },
                           textual_values: %w{ s_form ed_form ing_form }
                         }
       }

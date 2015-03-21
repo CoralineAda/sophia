@@ -21,7 +21,7 @@ module Gramercy
 
         def initialize(text:, verb_positions:, verbs:)
           @split_text = text
-          @verb_positions = verb_positions
+          @verb_positions = verb_positions || 0
           @verbs = verbs
         end
 
@@ -44,17 +44,20 @@ module Gramercy
         def subject
           @subject ||= begin
             phrases = noun_phrases[0..-2]
-            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: ['adjective', 'pronoun', 'article'], base_form: phrases).map(&:base_form)
+            phrases = phrases - Gramercy::PartOfSpeech::Generic.where(
+                                  type: ['adjective', 'pronoun', 'article'],
+                                  base_form: phrases
+                                ).map(&:base_form)
             phrases.first
           end
         end
 
         def predicate
-          noun_phrases[noun_phrases.index(subject)+1..-1].join(' ')
+          noun_phrases[(noun_phrases.index(subject) + 1)..-1].join(' ')
         end
 
         def noun_phrases
-          @noun_phrases ||= split_text[0..verb_positions.first - 1] + split_text[verb_positions.first + 1..-1]
+          @noun_phrases ||= split_text[0..verb_positions.first.to_i - 1] + split_text[verb_positions.first.to_i + 1..-1]
         end
 
         def object

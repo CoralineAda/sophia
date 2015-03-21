@@ -12,13 +12,6 @@ module Gramercy
         Meta::Context.from(nouns).first
       end
 
-      def stemmed_words
-        @stemmed_words ||= begin
-          words = nouns + adjectives
-          words + words.map{ |word| Lingua::Stemmer.new.stem(word) }
-        end.uniq
-      end
-
       def contexts
         @contexts ||= Meta::Context.from(stemmed_words)
       end
@@ -84,6 +77,13 @@ module Gramercy
         @split_text ||= begin
           self.text.gsub(/[\.\?\!\,]/, '').split
         end
+      end
+
+      def stemmed_words
+        @stemmed_words ||= begin
+          words = nouns + adjectives
+          words + words.map{ |word| Lingua::Stemmer.new.stem(word) }
+        end.uniq
       end
 
       def subject
