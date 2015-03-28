@@ -53,7 +53,7 @@ module Gramercy
         end
 
         def predicate
-          noun_phrases[(noun_phrases.index(subject) + 1)..-1].join(' ')
+          (noun_phrases[(noun_phrases.index(subject) + 1)..-1].uniq - [subject]).join(' ')
         end
 
         def noun_phrases

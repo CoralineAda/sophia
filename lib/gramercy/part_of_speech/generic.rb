@@ -65,13 +65,9 @@ module Gramercy
         %w{a e i o}.include?(noun_in_form[0]) ? "an #{noun_in_form}" : "a #{noun_in_form}"
       end
 
-      def self.verbs_with_form_matching(word)
-        query_as(:w).match('(v:`Gramercy::PartOfSpeech::Generic`)-[PROPERTIES]->(p:`Gramercy::PartOfSpeech::Property`)').
-                     where("v.type = 'verb' AND v.base_form = '#{word}' OR p.value = '#{word}'").
-                     return('DISTINCT v').
-                     map(&:v)
+      def self.verbs_with_form_matching_grr(word)
+        Query.find(word, 'verb')
       end
-
 
       def all_forms
         return unless self.type == 'verb'
