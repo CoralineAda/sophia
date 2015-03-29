@@ -65,7 +65,7 @@ module Gramercy
         %w{a e i o}.include?(noun_in_form[0]) ? "an #{noun_in_form}" : "a #{noun_in_form}"
       end
 
-      def self.verbs_with_form_matching_grr(word)
+      def self.verbs_with_form_matching(word)
         Query.find(word, 'verb')
       end
 

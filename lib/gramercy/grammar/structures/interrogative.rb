@@ -149,6 +149,7 @@ module Gramercy
         def subject
           @subject ||= begin
             phrases = noun_phrases[0..-2]
+            return phrases.first if phrases.size == 1
             phrases = phrases - Gramercy::PartOfSpeech::Generic.where(type: ['adjective', 'pronoun'], base_form: phrases).map(&:base_form)
             phrases.first
           end

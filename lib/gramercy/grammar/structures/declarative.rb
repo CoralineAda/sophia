@@ -66,10 +66,13 @@ module Gramercy
         end
 
         def descriptors
-          Gramercy::PartOfSpeech::Generic.where(
-            type: 'adjective',
-            base_form: predicate.split
-          ).map(&:base_form)
+          @descriptors ||= predicate.split[0..-2].map do |word|
+            Gramercy::PartOfSpeech::Generic.find_or_create_by(
+              type: 'adjective',
+              base_form: word
+            )
+            word
+          end
         end
 
         def verb
