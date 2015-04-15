@@ -7,8 +7,8 @@ module Gramercy
 
       validate :unique_within_type
 
-      property :base_form, index: :exact
-      property :type
+      property :base_form, type: String, index: :exact
+      property :type, type: String
 
       has_one :both, :root, model_class: Meta::Root
       has_many :out, :properties, model_class: PartOfSpeech::Property
