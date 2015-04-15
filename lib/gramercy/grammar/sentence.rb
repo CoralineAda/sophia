@@ -41,9 +41,10 @@ module Gramercy
         @split_text ||= self.sentence.split(/\s+/)
       end
 
+      # fails on "Is John the fattest president?" by returning "John the"
       def subject_phrase
         if position_of(verb) == 0
-          (split_text - verb)[0..(split_text.index(articles.last) - 1)]
+          (split_text - [verb])[0..((split_text - [verb]).index(articles.last) - 1)]
         else
           split_text - verb_phrase
         end
@@ -55,7 +56,7 @@ module Gramercy
 
       def object_phrase
         if position_of(verb) == 0
-          (split_text - verb)[split_text.index(articles.last)..-1]
+          (split_text - [verb])[(split_text - [verb]).index(articles.last)..-1]
         else
           verb_phrase - [verb]
         end
