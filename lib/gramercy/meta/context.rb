@@ -11,7 +11,8 @@ module Gramercy
       validates_presence_of :name
       validates_uniqueness_of :name
 
-      has_many :both, :roots, model_class: Meta::Root, rel_class: Meta::Expression, type: 'expressed_as'
+      has_many :both, :roots, { model_class: Meta::Root, type: "roots" }
+      has_many :both, :expressed_as, { model_class: Meta::Expression, type: "expressed_as"}
 
       def self.from(words)
         query_as(:w).match(n:Gramercy::Meta::Context).

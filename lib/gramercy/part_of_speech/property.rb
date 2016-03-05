@@ -7,7 +7,7 @@ module Gramercy
       property :name, index: :exact
       property :value
 
-      has_one :in, :generic, model_class: PartOfSpeech::Generic
+      has_one :in, :generic, rel_class: PartOfSpeech::Generic
 
     end
   end

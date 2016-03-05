@@ -10,8 +10,8 @@ module Gramercy
       property :base_form, index: :exact
       property :type
 
-      has_one :both, :root, model_class: Meta::Root
-      has_many :out, :properties, model_class: PartOfSpeech::Property
+      has_one :both, :root, rel_class: Meta::Root
+      has_many :out, :properties, rel_class: PartOfSpeech::Property
 
       attr_accessor :property_attributes, :root_word
 

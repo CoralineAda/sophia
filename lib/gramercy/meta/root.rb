@@ -11,8 +11,9 @@ module Gramercy
       validates_presence_of :base_form
       validates_uniqueness_of :base_form
 
-      has_many :both, :contexts, model_class: Meta::Context, rel_class: Meta::Expression
-      has_many :out,  :forms,    model_class: PartOfSpeech::Generic, type: 'in_form'
+#      has_many :both, :contexts, rel_class: Meta::Context, rel_class: Meta::Expression, type: "contexts"
+      has_many :both, :contexts, { rel_class: Meta::Context }
+      has_many :out,  :in_form, { rel_class: PartOfSpeech::Generic }
 
       attr_accessor :positivity
 

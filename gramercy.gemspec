@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "ruby-stemmer", ">=0.8.3"
   spec.add_dependency "rubyfish"
   spec.add_dependency "neo4j"
+  spec.add_dependency "rwordnet"
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "database_cleaner", "~> 1.3.0"
